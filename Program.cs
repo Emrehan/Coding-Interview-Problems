@@ -8,6 +8,8 @@ namespace dynamic_programming
     {
         static void Main(string[] args)
         {
+            //Dynamic Programming (https://www.youtube.com/watch?v=oBt53YbR9Kk)
+
             //Fibonacci
             //Print(fib(6)); //8
             //Print(fib(7)); //13
@@ -61,7 +63,7 @@ namespace dynamic_programming
             //Print(allConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", new string[] { "e", "ee", "eee", "eeee", "eeeee", "eeeeee", "eeeeeee", "eeeeeeee", "eeeeeeeee", "eeeeeeee" })); // 0
 
             // 
-            // Problems
+            // Problems (https://www.youtube.com/watch?v=Peq4GCPNC5c)
             // 
 
             //Print(IsAnagram("emrehan", "mehanre")); //true
