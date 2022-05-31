@@ -91,6 +91,8 @@ namespace dynamic_programming
             //Print(SchoolSchedule(new int[] { 0, 1, 2 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(1, 2) })); //true
             //Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //false
             //Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() {                     Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //true
+
+            //Print Kth permutation. K-> 2 
         }
 
         private static bool SchoolSchedule(int[] courses, List<Tuple<int, int>> reqs)
