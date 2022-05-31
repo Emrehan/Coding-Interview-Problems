@@ -75,16 +75,49 @@ namespace dynamic_programming
             //Print(FirstAndLastIndex(3, new int[] { 1, 3, 3, 4, 5, 6, 7})); // [1, 2]
             //Print(FirstAndLastIndex(3, new int[] { 1, 2, 2, 2, 3, 3, 7})); // [4, 5]
 
-            //Print(FindKthLargest(4, new int[] { 4, 2, 9, 7, 5, 6, 7, 1, 3 }));
+            //Print(FindKthLargest(4, new int[] { 4, 2, 9, 7, 5, 6, 7, 1, 3 })); //6    Largest 4 is 6. [9 7 7 (6)]
 
             //Print(AllParantheses(3)); //["((()))", "(()())", "(())()", "()(())", "()()()"]
             //Print(AllParantheses(2)); //["(())", "()()"]
 
+            //Gas station has 2 parameters gas->gas you will take when you receive that station, cost->cost of leaving that station. 
+            //Return first index where you can start at, go all way and return back to that index.
+            //for example: Example 3 -> Start at 8 9 10 0 1 . . 7 8 -> Successfully returned the initial state
             //Print(GasStation(new int[] { 1, 2, 3 }, new int[] { 3, 1, 2 })); // 1
             //Print(GasStation(new int[] { 1, 1, 1 }, new int[] { 3, 3, 3 })); // -1
             //Print(GasStation(new int[] { 1,5,3,3,5,3,1,3,4,5 }, new int[] { 5,2,2,8,2,4,2,5,1,2 })); // 8
 
+            //Cources list,  reqs -> array of (x,y)  you have to take course "b" to take "a". Return true if it is possible to take all courses, false otherwise.
+            //Print(SchoolSchedule(new int[] { 0, 1, 2 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(1, 2) })); //true
+            //Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //false
+            //Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() {                     Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //true
+        }
 
+        private static bool SchoolSchedule(int[] courses, List<Tuple<int, int>> reqs)
+        {
+            if (courses.Length == 0) return true;
+
+            foreach (var course in courses)
+            {
+                var preReqs = reqs.Where(f => f.Item1.Equals(course));
+                bool check = false;
+
+                foreach (var req in preReqs)
+                {
+                    if(courses.Count(f => f.Equals(req.Item2)) == 0)
+                    {
+                        check = true;
+                    }
+                }
+
+                if (check || preReqs.Count() == 0)
+                {
+                    if(SchoolSchedule(courses.RemoveAt(course), reqs))
+                        return true;
+                }
+            }
+
+            return false;
         }
 
         private static int GasStation(int[] gas, int[] cost)
