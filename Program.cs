@@ -62,6 +62,11 @@ namespace dynamic_programming
             //Print(allConstruct("skateboard", new string[] { "bo", "rd", "ate", "t", "ska", "sk", "boar" })); // []
             //Print(allConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", new string[] { "e", "ee", "eee", "eeee", "eeeee", "eeeeee", "eeeeeee", "eeeeeeee", "eeeeeeeee", "eeeeeeee" })); // 0
 
+
+
+
+
+
             // 
             // Problems (https://www.youtube.com/watch?v=Peq4GCPNC5c)
             // 
@@ -92,7 +97,77 @@ namespace dynamic_programming
             //Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //false
             //Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() {                     Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //true
 
-            //Print Kth permutation. K-> 2 
+            //Print Kth permutation. (N,K) 
+            //  N = 2
+            //  1 2
+            //  2 1 -> K=2
+            //Print(KthPermutation(3, 3)); // [2,1,3]
+
+
+
+
+
+
+            // https://leetcode.com/problems/max-points-on-a-line/
+            //Print(MaxPoints(new int[][] { new int[] { 1, 1 }, new int[] { 2, 2 }, new int[] { 3, 3 }, new int[] { 4, 4 } })); //4
+            //Print(MaxPoints(new int[][] { new int[] { 1, 1 }, new int[] { 3, 2 }, new int[] { 5, 3 }, new int[] { 4, 1 }, new int[] { 2, 3 }, new int[] { 1, 4 } })); //4
+            //Print(MaxPoints(new int[][] { new int[] { -184, -551 }, new int[] { -105, -467 }, new int[] { -90, -394 }, new int[] { -60, -248 }, new int[] { 115, 359 }, new int[] { 138, 429 }, new int[] { 60, 336 }, new int[] { 150, 774 }, new int[] { 207, 639 }, new int[] { -150, -686 }, new int[] { -135, -613 }, new int[] { 92, 289 }, new int[] { 23, 79 }, new int[] { 135, 701 }, new int[] { 0, 9 }, new int[] { -230, -691 }, new int[] { -115, -341 }, new int[] { -161, -481 }, new int[] { 230, 709 }, new int[] { -30, -102 } })); //4
+        }
+
+        private static int MaxPoints(int[][] nums, int[] prev = null, Dictionary<string, int> lookup = null)
+        {
+            if (lookup == null) lookup = new Dictionary<string, int>();
+            if (prev == null) prev = new int[] { };
+
+            var key = "";
+            foreach (var keke in prev) key += keke + ",";
+            if (lookup.ContainsKey(key)) return lookup[key];
+
+
+            List<int> possibleNode = new List<int>();
+
+            int[] a1 = null;
+            int[] a2 = null;
+
+            if (prev.Length >= 2)
+            {
+                a1 = nums[prev[prev.Length - 1]];
+                a2 = nums[prev[prev.Length - 2]];
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (prev.Contains(i)) continue;
+
+                if (prev.Length < 2)
+                    possibleNode.Add(i);
+                else if (((nums[i][0] - a1[0]) * (a2[1] - a1[1])) == ((nums[i][1] - a1[1]) * (a2[0] - a1[0])))
+                    possibleNode.Add(i);
+            }
+
+
+            if (possibleNode.Count == 0)
+            {
+                lookup[key] = prev.Length;
+                return prev.Length;
+            }
+
+            var maxResult = 0;
+            foreach (var n in possibleNode)
+            {
+                var result = MaxPoints(nums, prev.Append(n).ToArray(), lookup);
+
+                if (result > maxResult)
+                    maxResult = result;
+            }
+
+            lookup[key] = maxResult;
+            return maxResult;
+        }
+
+        private static int[] KthPermutation(int v1, int v2)
+        {
+            throw new NotImplementedException();
         }
 
         private static bool SchoolSchedule(int[] courses, List<Tuple<int, int>> reqs)
@@ -535,15 +610,16 @@ namespace dynamic_programming
     {
         public static T[] RemoveAt<T>(this T[] arr, int index)
         {
-            for (int a = index; a < arr.Length - 1; a++)
+            T[] arr2 = (T[])arr.Clone();
+            for (int a = index; a < arr2.Length - 1; a++)
             {
                 // moving elements downwards, to fill the gap at [index]
-                arr[a] = arr[a + 1];
+                arr2[a] = arr2[a + 1];
             }
             // finally, let's decrement Array's size by one
-            Array.Resize(ref arr, arr.Length - 1);
+            Array.Resize(ref arr2, arr2.Length - 1);
 
-            return arr;
+            return arr2;
         }
     }
 }
