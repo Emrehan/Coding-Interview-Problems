@@ -103,6 +103,16 @@ namespace dynamic_programming
             //  2 1 -> K=2
             //Print(KthPermutation(3, 3)); // [2,1,3]
 
+            //MinimumWindowSubstring  find minimum lenght substring of str that containts all characters in t
+            //Print(MinimumWindowSubstring("ABBBA", "AA")); // "ABBBA"
+            //Print(MinimumWindowSubstring("ADOBECODEBANC", "ABC")); // "BANC"
+            //Print(MinimumWindowSubstring("ADCFEBECEABEBADFCDFCBFCBEAD", "ABCA")); // "CEABEBA"
+
+            //LargestRectangleInHistogram
+            //Print(LargestRectangleInHistogram(new int[] { 6, 3, 4, 2 })); //9
+            //Print(LargestRectangleInHistogram(new int[] { 3, 2, 4, 5, 7, 6, 1, 3, 8, 9, 10, 11, 10, 7, 5, 2, 6 })); //35
+
+
 
 
 
@@ -113,7 +123,226 @@ namespace dynamic_programming
             //Print(MaxPoints(new int[][] { new int[] { 1, 1 }, new int[] { 3, 2 }, new int[] { 5, 3 }, new int[] { 4, 1 }, new int[] { 2, 3 }, new int[] { 1, 4 } })); //4
             //Print(MaxPoints(new int[][] { new int[] { -184, -551 }, new int[] { -105, -467 }, new int[] { -90, -394 }, new int[] { -60, -248 }, new int[] { 115, 359 }, new int[] { 138, 429 }, new int[] { 60, 336 }, new int[] { 150, 774 }, new int[] { 207, 639 }, new int[] { -150, -686 }, new int[] { -135, -613 }, new int[] { 92, 289 }, new int[] { 23, 79 }, new int[] { 135, 701 }, new int[] { 0, 9 }, new int[] { -230, -691 }, new int[] { -115, -341 }, new int[] { -161, -481 }, new int[] { 230, 709 }, new int[] { -30, -102 } })); //4
 
+
+
+
+
+
+
+
+            //https://www.youtube.com/watch?v=A80YzvNwqXA
+            //N Quenn
+            Print(SolveNQueen(4)); //[ [1,3,0,2], [2,0,3,1] ]
+
+
+
+
+
+
             //Rolling hash?
+        }
+
+        private static int[][] SolveNQueen(int n, int[] prev = null)
+        {
+            if (prev == null) prev = new int[] { };
+            if (prev.Length == n) return new int[][] { prev };
+
+            List<int[]> allWays = new List<int[]>();
+            
+            for(int i = 0; i < n; i++)
+            {
+                if (prev.Contains(i))                     
+                    continue;
+
+                if (prev.Length != 0)
+                    if (prev.Last() + 1 == i || prev.Last() - 1 == i)
+                        continue;
+
+                var result = SolveNQueen(n, prev.Concat(new int[] { i }).ToArray());
+                if (result != null)
+                    allWays.AddRange(result);
+            }
+
+            return allWays.ToArray();
+        }
+
+        private static int LargestRectangleInHistogram(int[] numbers)
+        {
+            Queue<Tuple<int, int>> Q = new Queue<Tuple<int, int>>();
+            for (int i = 0; i < numbers.Length; i++)
+                Q.Enqueue(Tuple.Create(i, i));
+
+            Tuple<int, int> maxTuple = Tuple.Create(0, 0);
+            int maxSize = -1;
+
+            while(Q.Count != 0)
+            {
+                var T = Q.Dequeue();
+                var tSize = SizeOfTuple(T, numbers);
+
+                if (tSize >= maxSize)
+                {
+                    maxTuple = T;
+                    maxSize = tSize;
+                }
+
+                var leftTuple = Tuple.Create(T.Item1 - 1, T.Item2);
+                if (leftTuple.Item1 >= 0 && !Q.Contains(leftTuple))
+                    Q.Enqueue(leftTuple);
+
+                var rightTuple = Tuple.Create(T.Item1, T.Item2+1);
+                if (rightTuple.Item2 < numbers.Length && !Q.Contains(rightTuple))
+                    Q.Enqueue(rightTuple);
+            }
+
+            return maxSize;
+        }
+
+        private static int SizeOfTuple(Tuple<int, int> t, int[] numbers)
+        {
+            int width = t.Item2 - t.Item1 + 1;
+
+            int min = numbers[t.Item2];
+            for(int i = t.Item1; i < t.Item2; i++)
+            {
+                if(numbers[i] <= min)
+                {
+                    min = numbers[i];
+                }
+            }
+
+            return min * width;
+        }
+
+        //Goodone
+        private static string MinimumWindowSubstring(string str, string t)
+        {
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            foreach (char c in t)
+            {
+                if (!dict.ContainsKey(c))
+                    dict.Add(c, 0);
+                dict[c]++;
+            }
+
+            Dictionary<char, int> subStringDict = new Dictionary<char, int>();
+            foreach (char c in str.Substring(0, t.Length))
+            {
+                if (!subStringDict.ContainsKey(c))
+                    subStringDict.Add(c, 0);
+                subStringDict[c]++;
+            }
+
+            int n = str.Length;
+            int start = 0;
+            int interval = t.Length;
+            bool moveRight = true;
+
+            while(interval != n)
+            {
+                if (CompareFreq(dict, subStringDict))
+                    return str.Substring(start, interval);
+
+                if( (moveRight && (start+interval < n)) || (!moveRight && (start-1 >= 0)))
+                {
+                    if(moveRight)
+                    {
+                        ChangeTarget(subStringDict, str[start], false);
+                        ChangeTarget(subStringDict, str[start + interval], true);
+                        start++;
+                    }
+                    else
+                    {
+                        ChangeTarget(subStringDict, str[start + interval - 1], false);
+                        ChangeTarget(subStringDict, str[start - 1], true);
+                        start--;
+                    }
+                }
+                else
+                {
+                    if (moveRight)
+                        ChangeTarget(subStringDict, str[start - 1], true);
+                    else
+                        ChangeTarget(subStringDict, str[start + interval], true);
+
+                    interval++;
+
+                    moveRight = !moveRight;
+                    if (!moveRight)
+                        start--;
+                }
+            }
+            if (CompareFreq(dict, subStringDict))
+                return str;
+            else
+                return "";
+        }
+
+        private static void ChangeTarget(Dictionary<char, int> target, char c, bool add)
+        {
+            if (add)
+            {
+                if (!target.ContainsKey(c))
+                    target.Add(c, 0);
+                target[c]++;
+            }
+            else
+            {
+                target[c]--;
+                if (target[c] == 0)
+                    target.Remove(c);
+            }
+        }
+
+        private static bool CompareFreq(Dictionary<char, int> source, Dictionary<char, int> target)
+        {
+            foreach (var item in source)
+            {
+                if (!target.ContainsKey(item.Key))
+                    return false;
+                if (target[item.Key] < item.Value)
+                    return false;
+            }
+            return true;
+        }
+
+        //Shit one 
+        private static string MinimumWindowSubstring2(string str, string t)
+        {
+            int l = t.Length;
+            int start = 0;
+
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            foreach(var c in t)
+            {
+                if (!dict.ContainsKey(c))
+                    dict.Add(c, 0);
+                dict[c]++;
+            }
+
+            string minFound = "";
+            while(l!=str.Length)
+            {
+                start = 0;
+
+                while (start + l != str.Length + 1)
+                {
+                    var subStr = str.Substring(start, l);
+                    if (dict.All(f => subStr.Count(x => x == f.Key) >= f.Value ))
+                    {
+                        if (minFound.Length == 0 || subStr.Length < minFound.Length)
+                        {
+                            minFound = subStr;
+                        }
+                    }
+
+                    start++;
+                }
+                
+                l++;
+            }
+
+            return minFound;
         }
 
         private static int MaxPoints(int[][] nums, int[] prev = null, Dictionary<string, int> lookup = null)
@@ -167,9 +396,9 @@ namespace dynamic_programming
             return maxResult;
         }
 
-        private static int[] KthPermutation(int v1, int v2)
+        private static int[] KthPermutation(int n, int k)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         private static bool SchoolSchedule(int[] courses, List<Tuple<int, int>> reqs)
@@ -575,6 +804,24 @@ namespace dynamic_programming
                 Console.Write("] ");
             }
         }
+        private static void Print(int[][] allPaths)
+        {
+            if(allPaths == null)
+            {
+                Console.WriteLine("Null");
+                return;
+            }
+
+            foreach (var path in allPaths)
+            {
+                Console.Write("[");
+                foreach (var item in path)
+                {
+                    Console.Write(item + " ");
+                }
+                Console.Write("] ");
+            }
+        }
         private static void Print(List<List<string>> allPaths)
         {
             if(allPaths.Count == 0)
@@ -603,6 +850,10 @@ namespace dynamic_programming
                 Console.Write("\"" + s + "\" ");
             }
             Console.Write(" ]\n");
+        }
+        private static void Print(object s)
+        {
+            Console.WriteLine(s.ToString());
         }
 
         
