@@ -4,63 +4,63 @@ using System.Linq;
 
 namespace dynamic_programming
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             //Dynamic Programming (https://www.youtube.com/watch?v=oBt53YbR9Kk)
 
             //Fibonacci
-            //Print(fib(6)); //8
-            //Print(fib(7)); //13
-            //Print(fib(8)); //21
-            //Print(fib(50));//12586269025
+            //P.Print(fib(6)); //8
+            //P.Print(fib(7)); //13
+            //P.Print(fib(8)); //21
+            //P.Print(fib(50));//12586269025
 
             //Grid Traveler
-            //Print(gridTravel(1, 1));    //1
-            //Print(gridTravel(2, 3));    //3
-            //Print(gridTravel(3, 2));    //3
-            //Print(gridTravel(3, 3));    //6
-            //Print(gridTravel(18, 18));  //2333606220
+            //P.Print(gridTravel(1, 1));    //1
+            //P.Print(gridTravel(2, 3));    //3
+            //P.Print(gridTravel(3, 2));    //3
+            //P.Print(gridTravel(3, 3));    //6
+            //P.Print(gridTravel(18, 18));  //2333606220
 
             // canSum
-            //Print(canSum(7, new int[] { 2, 3 }));      //true 
-            //Print(canSum(7, new int[] { 5, 3, 4, 7 }));//true
-            //Print(canSum(7, new int[] { 2, 4 }));      //false
-            //Print(canSum(8, new int[] { 2, 3, 5 }));   //true
-            //Print(canSum(300, new int[] { 7, 14 }));   //false
+            //P.Print(canSum(7, new int[] { 2, 3 }));      //true 
+            //P.Print(canSum(7, new int[] { 5, 3, 4, 7 }));//true
+            //P.Print(canSum(7, new int[] { 2, 4 }));      //false
+            //P.Print(canSum(8, new int[] { 2, 3, 5 }));   //true
+            //P.Print(canSum(300, new int[] { 7, 14 }));   //false
 
             // howSum
-            //Print(howSum(7, new int[] { 2, 3 }));       //[3, 2, 2]
-            //Print(howSum(7, new int[] { 5, 3, 4, 7 })); //[4, 3]
-            //Print(howSum(7, new int[] { 2, 4 }));       // null
-            //Print(howSum(8, new int[] { 2, 3, 5 }));    //[2, 2, 2, 2]
-            //Print(howSum(300, new int[] { 7, 14 }));    // null
+            //P.Print(howSum(7, new int[] { 2, 3 }));       //[3, 2, 2]
+            //P.Print(howSum(7, new int[] { 5, 3, 4, 7 })); //[4, 3]
+            //P.Print(howSum(7, new int[] { 2, 4 }));       // null
+            //P.Print(howSum(8, new int[] { 2, 3, 5 }));    //[2, 2, 2, 2]
+            //P.Print(howSum(300, new int[] { 7, 14 }));    // null
 
             // bestSum
-            //Print(bestSum(7, new int[] { 5, 3, 4, 7 }));    // [7]
-            //Print(bestSum(8, new int[] { 2, 3, 5 }));       // [3, 5]
-            //Print(bestSum(8, new int[] { 1, 4, 5 }));       // [4, 4]
-            //Print(bestSum(100, new int[] { 1, 2, 5, 25 })); // [25, 25, 25, 25]
+            //P.Print(bestSum(7, new int[] { 5, 3, 4, 7 }));    // [7]
+            //P.Print(bestSum(8, new int[] { 2, 3, 5 }));       // [3, 5]
+            //P.Print(bestSum(8, new int[] { 1, 4, 5 }));       // [4, 4]
+            //P.Print(bestSum(100, new int[] { 1, 2, 5, 25 })); // [25, 25, 25, 25]
 
             // canConstruct
-            //Print(canConstruct("abcdef", new string[] { "ab", "abc", "cd", "def", "abcd" })); // true
-            //Print(canConstruct("skateboard", new string[] { "bo", "rd", "ate", "t", "ska", "sk", "boar" })); // false
-            //Print(canConstruct("enterapotentpot", new string[] { "a", "p", "ent", "enter", "ot", "o", "t" })); // true
-            //Print(canConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", new string[] { "e", "ee", "eee", "eeee", "eeeee", "eeeeee", "eeeeeee", "eeeeeeee", "eeeeeeeee", "eeeeeeee" })); // false
+            //P.Print(canConstruct("abcdef", new string[] { "ab", "abc", "cd", "def", "abcd" })); // true
+            //P.Print(canConstruct("skateboard", new string[] { "bo", "rd", "ate", "t", "ska", "sk", "boar" })); // false
+            //P.Print(canConstruct("enterapotentpot", new string[] { "a", "p", "ent", "enter", "ot", "o", "t" })); // true
+            //P.Print(canConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", new string[] { "e", "ee", "eee", "eeee", "eeeee", "eeeeee", "eeeeeee", "eeeeeeee", "eeeeeeeee", "eeeeeeee" })); // false
 
             // countConstruct
-            //Print(countConstruct("purple", new string[] { "purp", "p", "ur", "le", "purpl"})); // 2
-            //Print(countConstruct("abcdef", new string[] { "ab", "abc", "cd", "def", "abcd" })); // 1
-            //Print(countConstruct("skateboard", new string[] { "bo", "rd", "ate", "t", "ska", "sk", "boar" })); // 0
-            //Print(countConstruct("enterapotentpot", new string[] { "a", "p", "ent", "enter", "ot", "o", "t" })); // 4
-            //Print(countConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", new string[] { "e", "ee", "eee", "eeee", "eeeee", "eeeeee", "eeeeeee", "eeeeeeee", "eeeeeeeee", "eeeeeeee" })); // 0
+            //P.Print(countConstruct("purple", new string[] { "purp", "p", "ur", "le", "purpl"})); // 2
+            //P.Print(countConstruct("abcdef", new string[] { "ab", "abc", "cd", "def", "abcd" })); // 1
+            //P.Print(countConstruct("skateboard", new string[] { "bo", "rd", "ate", "t", "ska", "sk", "boar" })); // 0
+            //P.Print(countConstruct("enterapotentpot", new string[] { "a", "p", "ent", "enter", "ot", "o", "t" })); // 4
+            //P.Print(countConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", new string[] { "e", "ee", "eee", "eeee", "eeeee", "eeeeee", "eeeeeee", "eeeeeeee", "eeeeeeeee", "eeeeeeee" })); // 0
 
             // allConstruct
-            //Print(allConstruct("abc", new string[] { "a", "ab", "b", "c"})); // [a b c] [ab c]
-            //Print(allConstruct("purple", new string[] { "purp", "p", "ur", "le", "purpl"})); // [purp le] [p ur p le]
-            //Print(allConstruct("skateboard", new string[] { "bo", "rd", "ate", "t", "ska", "sk", "boar" })); // []
-            //Print(allConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", new string[] { "e", "ee", "eee", "eeee", "eeeee", "eeeeee", "eeeeeee", "eeeeeeee", "eeeeeeeee", "eeeeeeee" })); // 0
+            //P.Print(allConstruct("abc", new string[] { "a", "ab", "b", "c"})); // [a b c] [ab c]
+            //P.Print(allConstruct("purple", new string[] { "purp", "p", "ur", "le", "purpl"})); // [purp le] [p ur p le]
+            //P.Print(allConstruct("skateboard", new string[] { "bo", "rd", "ate", "t", "ska", "sk", "boar" })); // []
+            //P.Print(allConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", new string[] { "e", "ee", "eee", "eeee", "eeeee", "eeeeee", "eeeeeee", "eeeeeeee", "eeeeeeeee", "eeeeeeee" })); // 0
 
 
 
@@ -71,46 +71,46 @@ namespace dynamic_programming
             // Problems (https://www.youtube.com/watch?v=Peq4GCPNC5c)
             // 
 
-            //Print(IsAnagram("emrehan", "mehanre")); //true
+            //P.Print(IsAnagram("emrehan", "mehanre")); //true
 
-            //Print(FirstAndLastIndex(5, new int[] { 2, 4, 5, 5, 5, 5, 5, 7, 9, 9 })); // [2, 6]
-            //Print(FirstAndLastIndex(3, new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 })); // [-1,-1]
-            //Print(FirstAndLastIndex(3, new int[] { 1, 3, 4, 4, 5, 6, 7})); // [1, 1]
-            //Print(FirstAndLastIndex(3, new int[] { 1, 2, 4, 4, 5, 6, 7})); // [-1,-1]
-            //Print(FirstAndLastIndex(3, new int[] { 1, 3, 3, 4, 5, 6, 7})); // [1, 2]
-            //Print(FirstAndLastIndex(3, new int[] { 1, 2, 2, 2, 3, 3, 7})); // [4, 5]
+            //P.Print(FirstAndLastIndex(5, new int[] { 2, 4, 5, 5, 5, 5, 5, 7, 9, 9 })); // [2, 6]
+            //P.Print(FirstAndLastIndex(3, new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 })); // [-1,-1]
+            //P.Print(FirstAndLastIndex(3, new int[] { 1, 3, 4, 4, 5, 6, 7})); // [1, 1]
+            //P.Print(FirstAndLastIndex(3, new int[] { 1, 2, 4, 4, 5, 6, 7})); // [-1,-1]
+            //P.Print(FirstAndLastIndex(3, new int[] { 1, 3, 3, 4, 5, 6, 7})); // [1, 2]
+            //P.Print(FirstAndLastIndex(3, new int[] { 1, 2, 2, 2, 3, 3, 7})); // [4, 5]
 
-            //Print(FindKthLargest(4, new int[] { 4, 2, 9, 7, 5, 6, 7, 1, 3 })); //6    Largest 4 is 6. [9 7 7 (6)]
+            //P.Print(FindKthLargest(4, new int[] { 4, 2, 9, 7, 5, 6, 7, 1, 3 })); //6    Largest 4 is 6. [9 7 7 (6)]
 
-            //Print(AllParantheses(3)); //["((()))", "(()())", "(())()", "()(())", "()()()"]
-            //Print(AllParantheses(2)); //["(())", "()()"]
+            //P.Print(AllParantheses(3)); //["((()))", "(()())", "(())()", "()(())", "()()()"]
+            //P.Print(AllParantheses(2)); //["(())", "()()"]
 
             //Gas station has 2 parameters gas->gas you will take when you receive that station, cost->cost of leaving that station. 
             //Return first index where you can start at, go all way and return back to that index.
             //for example: Example 3 -> Start at 8 9 10 0 1 . . 7 8 -> Successfully returned the initial state
-            //Print(GasStation(new int[] { 1, 2, 3 }, new int[] { 3, 1, 2 })); // 1
-            //Print(GasStation(new int[] { 1, 1, 1 }, new int[] { 3, 3, 3 })); // -1
-            //Print(GasStation(new int[] { 1,5,3,3,5,3,1,3,4,5 }, new int[] { 5,2,2,8,2,4,2,5,1,2 })); // 8
+            //P.Print(GasStation(new int[] { 1, 2, 3 }, new int[] { 3, 1, 2 })); // 1
+            //P.Print(GasStation(new int[] { 1, 1, 1 }, new int[] { 3, 3, 3 })); // -1
+            //P.Print(GasStation(new int[] { 1,5,3,3,5,3,1,3,4,5 }, new int[] { 5,2,2,8,2,4,2,5,1,2 })); // 8
 
             //Cources list,  reqs -> array of (x,y)  you have to take course "b" to take "a". Return true if it is possible to take all courses, false otherwise.
-            //Print(SchoolSchedule(new int[] { 0, 1, 2 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(1, 2) })); //true
-            //Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //false
-            //Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() {                     Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //true
+            //P.Print(SchoolSchedule(new int[] { 0, 1, 2 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(1, 2) })); //true
+            //P.Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() { Tuple.Create(0, 1), Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //false
+            //P.Print(SchoolSchedule(new int[] { 0, 1, 2, 3, 4, 5 }, new List<Tuple<int, int>>() {                     Tuple.Create(3, 0), Tuple.Create(1, 3), Tuple.Create(2, 1), Tuple.Create(4, 1), Tuple.Create(4, 2), Tuple.Create(5, 3), Tuple.Create(5, 4) })); //true
 
-            //Print Kth permutation. (N,K) 
+            //P.Print Kth permutation. (N,K) 
             //  N = 2
             //  1 2
             //  2 1 -> K=2
-            //Print(KthPermutation(3, 3)); // [2,1,3]
+            //P.Print(KthPermutation(3, 3)); // [2,1,3]
 
             //MinimumWindowSubstring  find minimum lenght substring of str that containts all characters in t
-            //Print(MinimumWindowSubstring("ABBBA", "AA")); // "ABBBA"
-            //Print(MinimumWindowSubstring("ADOBECODEBANC", "ABC")); // "BANC"
-            //Print(MinimumWindowSubstring("ADCFEBECEABEBADFCDFCBFCBEAD", "ABCA")); // "CEABEBA"
+            //P.Print(MinimumWindowSubstring("ABBBA", "AA")); // "ABBBA"
+            //P.Print(MinimumWindowSubstring("ADOBECODEBANC", "ABC")); // "BANC"
+            //P.Print(MinimumWindowSubstring("ADCFEBECEABEBADFCDFCBFCBEAD", "ABCA")); // "CEABEBA"
 
             //LargestRectangleInHistogram
-            //Print(LargestRectangleInHistogram(new int[] { 6, 3, 4, 2 })); //9
-            //Print(LargestRectangleInHistogram(new int[] { 3, 2, 4, 5, 7, 6, 1, 3, 8, 9, 10, 11, 10, 7, 5, 2, 6 })); //35
+            //P.Print(LargestRectangleInHistogram(new int[] { 6, 3, 4, 2 })); //9
+            //P.Print(LargestRectangleInHistogram(new int[] { 3, 2, 4, 5, 7, 6, 1, 3, 8, 9, 10, 11, 10, 7, 5, 2, 6 })); //35
 
 
 
@@ -119,9 +119,9 @@ namespace dynamic_programming
 
 
             // https://leetcode.com/problems/max-points-on-a-line/
-            //Print(MaxPoints(new int[][] { new int[] { 1, 1 }, new int[] { 2, 2 }, new int[] { 3, 3 }, new int[] { 4, 4 } })); //4
-            //Print(MaxPoints(new int[][] { new int[] { 1, 1 }, new int[] { 3, 2 }, new int[] { 5, 3 }, new int[] { 4, 1 }, new int[] { 2, 3 }, new int[] { 1, 4 } })); //4
-            //Print(MaxPoints(new int[][] { new int[] { -184, -551 }, new int[] { -105, -467 }, new int[] { -90, -394 }, new int[] { -60, -248 }, new int[] { 115, 359 }, new int[] { 138, 429 }, new int[] { 60, 336 }, new int[] { 150, 774 }, new int[] { 207, 639 }, new int[] { -150, -686 }, new int[] { -135, -613 }, new int[] { 92, 289 }, new int[] { 23, 79 }, new int[] { 135, 701 }, new int[] { 0, 9 }, new int[] { -230, -691 }, new int[] { -115, -341 }, new int[] { -161, -481 }, new int[] { 230, 709 }, new int[] { -30, -102 } })); //4
+            //P.Print(MaxPoints(new int[][] { new int[] { 1, 1 }, new int[] { 2, 2 }, new int[] { 3, 3 }, new int[] { 4, 4 } })); //4
+            //P.Print(MaxPoints(new int[][] { new int[] { 1, 1 }, new int[] { 3, 2 }, new int[] { 5, 3 }, new int[] { 4, 1 }, new int[] { 2, 3 }, new int[] { 1, 4 } })); //4
+            //P.Print(MaxPoints(new int[][] { new int[] { -184, -551 }, new int[] { -105, -467 }, new int[] { -90, -394 }, new int[] { -60, -248 }, new int[] { 115, 359 }, new int[] { 138, 429 }, new int[] { 60, 336 }, new int[] { 150, 774 }, new int[] { 207, 639 }, new int[] { -150, -686 }, new int[] { -135, -613 }, new int[] { 92, 289 }, new int[] { 23, 79 }, new int[] { 135, 701 }, new int[] { 0, 9 }, new int[] { -230, -691 }, new int[] { -115, -341 }, new int[] { -161, -481 }, new int[] { 230, 709 }, new int[] { -30, -102 } })); //4
 
 
 
@@ -132,14 +132,176 @@ namespace dynamic_programming
 
             //https://www.youtube.com/watch?v=A80YzvNwqXA
             //N Quenn
-            Print(SolveNQueen(4)); //[ [1,3,0,2], [2,0,3,1] ]
+            //P.Print(SolveNQueen(4)); //[ [1,3,0,2], [2,0,3,1] ]
 
 
 
 
 
+            //     A -> H <- I 
+            //     |
+            //     v
+            //     B -> D -> F - > G
+            //     | 
+            //     v
+            //     C -> E
+            //
+            var directGraph = new Dictionary<char, char[]>();
+            directGraph.Add('A', new char[] { 'B', 'H' });
+            directGraph.Add('B', new char[] { 'D', 'C' });
+            directGraph.Add('C', new char[] { 'E' });
+            directGraph.Add('D', new char[] { 'F' });
+            directGraph.Add('E', new char[] {  });
+            directGraph.Add('F', new char[] { 'G' });
+            directGraph.Add('G', new char[] { });
+            directGraph.Add('H', new char[] { });
+            directGraph.Add('I', new char[] { 'H' });
+
+            //   A - B - C
+            //   |
+            //   D
+            //
+            //   E - F
+            //
+            //   G - H - I
+            //       |
+            //       J
+            var nonDirectGraph = new Dictionary<char, char[]>();
+            nonDirectGraph.Add('A', new char[] { 'B', 'D' });
+            nonDirectGraph.Add('B', new char[] { 'A', 'C' });
+            nonDirectGraph.Add('C', new char[] { 'B' });
+            nonDirectGraph.Add('D', new char[] { 'A' });
+            nonDirectGraph.Add('E', new char[] { 'F' });
+            nonDirectGraph.Add('F', new char[] { 'E' });
+            nonDirectGraph.Add('G', new char[] { 'H' });
+            nonDirectGraph.Add('H', new char[] { 'G', 'I', 'J' });
+            nonDirectGraph.Add('I', new char[] { 'H' });
+            nonDirectGraph.Add('J', new char[] { 'H' });
+
+            //https://www.youtube.com/watch?v=tWVWeAqZ0WU //Graphs
+            //P.Print(HasPath(graph, 'A', 'G')); //true
+            //P.Print(HasPath(graph, 'A', 'E')); //true
+            //P.Print(HasPath(graph, 'A', 'Y')); //false
+
+            //P.Print(CountOfGroups(nonDirectGraph)); //3
+            //P.Print(GetGroups(nonDirectGraph)); // [ [A, B, C, D], [E, F], [G, H, I, J] ]
+
+
+
+
+            //https://www.hackerrank.com/challenges/climbing-the-leaderboard
+            //P.Print(ClimbingLeaderboard(new List<int>() { 100, 90, 90, 80, 75, 60 }, new List<int>() { 50, 65, 77, 90, 102 })); // [6, 5, 4, 2, 1]
+            //P.Print(ClimbingLeaderboard(new List<int>() { 100, 100, 50, 40, 40, 20, 10}, new List<int>() { 5, 25, 50, 120 })); // [6, 4, 2, 1]
+            //P.Print(ClimbingLeaderboard(new List<int>() { 100, 90, 90, 80}, new List<int>() { 70, 80, 105 })); // [4, 3, 1]
 
             //Rolling hash?
+        }
+
+        private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)
+        {
+            List<int> result = new List<int>();
+            foreach (var x in player)
+            {
+                var editedList = new List<int>(ranked);
+                editedList.Add(x);
+                editedList = editedList.Distinct().ToList();
+                editedList.Sort();
+                editedList.Reverse();
+                
+                int l = 0;
+                int r = editedList.Count - 1;
+                int m = 0;
+
+                while(l < r)
+                {
+                    m = (l + r) / 2;
+
+                    if (editedList[m] == x)
+                        break;
+                    else if (editedList[m] > x)
+                        l = m + 1;
+                    else
+                        r = m - 1;
+                }
+                m = (l + r) / 2;
+                
+                result.Add(m+1);
+            }
+            return result;
+        }
+
+        private static List<List<char>> GetGroups(Dictionary<char, char[]> nonDirectGraph)
+        {
+            var visited = new HashSet<char>();
+            var groups = new List<List<char>>();
+            foreach (var node in nonDirectGraph.Keys)
+            {
+                var result = GetGroup(nonDirectGraph, node, visited);
+                if (result != null)
+                    foreach (var g in result)
+                        groups.Add(g);
+            }
+            return groups;
+        }
+
+        private static List<List<char>> GetGroup(Dictionary<char, char[]> nonDirectGraph, char node, HashSet<char> visited)
+        {
+            if (visited.Contains(node)) return null;
+            visited.Add(node);
+
+            var groups = new List<List<char>>() { new List<char>() { node } };            
+            foreach (var neighboor in nonDirectGraph[node])
+            {
+                var result = GetGroup(nonDirectGraph, neighboor, visited);
+                if (result != null)
+                    for(int i = 0; i < groups.Count; i++)
+                        foreach (var resultGroup in result)
+                            groups[i] = groups[i].Concat(resultGroup).ToList();
+            }
+            
+            return groups;
+        }
+
+        private static int CountOfGroups(Dictionary<char, char[]> nonDirectGraph)
+        {
+            int c = 0;
+            var visited = new HashSet<char>();
+            foreach (var node in nonDirectGraph.Keys)
+            {
+                if (ExploreGroups(nonDirectGraph, node, visited))
+                    c++;
+            }
+            return c;
+        }
+
+        private static bool ExploreGroups(Dictionary<char, char[]> nonDirectGraph, char node, HashSet<char> visited)
+        {
+            if (visited.Contains(node)) return false;
+            visited.Add(node);
+
+            foreach (var neighboor in nonDirectGraph[node])
+            {
+                ExploreGroups(nonDirectGraph, neighboor, visited);
+            }
+            return true;
+        }
+
+        private static bool HasPath(Dictionary<char, char[]> graph, char src, char target, HashSet<char> visited = null)
+        {
+            if (visited == null) visited = new HashSet<char>();
+            if (src == target) return true;
+            if (visited.Contains(src)) return false;
+            
+            visited.Add(src);
+            
+            foreach (var next in graph[src])
+            {
+                if(HasPath(graph, next, target, visited))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static int[][] SolveNQueen(int n, int[] prev = null)
@@ -757,106 +919,6 @@ namespace dynamic_programming
             lookup[v] = fib(v - 1, lookup) + fib(v - 2, lookup);
             return lookup[v];
         }
-
-        private static void Print(int[] nums)
-        {
-            if (nums == null)
-            {
-                Console.WriteLine("null");
-                return;
-            }
-
-            var str = "";
-            foreach (var num in nums)
-            {
-                str += num + " ";
-            }
-            Console.WriteLine(str);
-        }
-
-        private static void Print(int num)
-        {
-            Console.WriteLine(num.ToString());
-        }
-        private static void Print(bool num)
-        {
-            Console.WriteLine(num.ToString());
-        }
-        private static void Print(long num)
-        {
-            Console.WriteLine(num.ToString());
-        }
-        private static void Print(string[][] allPaths)
-        {
-            if(allPaths == null)
-            {
-                Console.WriteLine("Null");
-                return;
-            }
-
-            foreach (var path in allPaths)
-            {
-                Console.Write("[");
-                foreach (var item in path)
-                {
-                    Console.Write(item + " ");
-                }
-                Console.Write("] ");
-            }
-        }
-        private static void Print(int[][] allPaths)
-        {
-            if(allPaths == null)
-            {
-                Console.WriteLine("Null");
-                return;
-            }
-
-            foreach (var path in allPaths)
-            {
-                Console.Write("[");
-                foreach (var item in path)
-                {
-                    Console.Write(item + " ");
-                }
-                Console.Write("] ");
-            }
-        }
-        private static void Print(List<List<string>> allPaths)
-        {
-            if(allPaths.Count == 0)
-            {
-                Console.WriteLine("[]");
-                return;
-            }
-
-            foreach (var path in allPaths)
-            {
-                Console.Write("[");
-                foreach (var item in path)
-                {
-                    Console.Write(item + " ");
-                }
-                Console.Write("], ");
-            }
-            Console.Write("\n");
-        }
-
-        private static void Print(List<string> str)
-        {
-            Console.Write("[ ");
-            foreach (var s in str)
-            {
-                Console.Write("\"" + s + "\" ");
-            }
-            Console.Write(" ]\n");
-        }
-        private static void Print(object s)
-        {
-            Console.WriteLine(s.ToString());
-        }
-
-        
     }
 
     public static class EmrehanExtension
