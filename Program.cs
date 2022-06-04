@@ -197,7 +197,25 @@ namespace dynamic_programming
             //https://www.hackerrank.com/challenges/compare-the-triplets
             //P.Print(compareTriplets(new List<int>() { 5, 6, 7 }, new List<int>() { 3, 6, 10 })); // [1, 1]
             //P.Print(compareTriplets(new List<int>() { 17, 28, 30 }, new List<int>() { 99, 16, 8 })); // [2, 1]
+
+            //https://www.hackerrank.com/challenges/magic-square-forming
+            //3x3'te magic number hep 15 olur
+            //P.Print(formingMagicSquare( new List<List<int>>() { new List<int>() { 5, 3, 4}, new List<int>() { 1, 5, 8}, new List<int>() { 6, 4, 2} } )); //7
+            //P.Print(formingMagicSquare( new List<List<int>>() { new List<int>() { 4, 9, 2}, new List<int>() { 1, 5, 8}, new List<int>() { 6, 4, 2} } )); //4
+
+            //https://www.hackerrank.com/challenges/encryption/problem?isFullScreen=true
+        
+            //https://www.hackerrank.com/challenges/flipping-bits/problem?isFullScreen=true
         }
+
+        public static int formingMagicSquare(List<List<int>> s)
+        {
+            int count = 0;
+            foreach (var row in s)
+                count += Math.Abs(15 - row.Sum());
+            return count;
+        }
+    
 
         private static List<int> compareTriplets(List<int> a, List<int> b)
         {
