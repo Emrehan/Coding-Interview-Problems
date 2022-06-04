@@ -188,13 +188,30 @@ namespace dynamic_programming
 
 
 
-
+            //HackerRank
             //https://www.hackerrank.com/challenges/climbing-the-leaderboard
             //P.Print(ClimbingLeaderboard(new List<int>() { 100, 90, 90, 80, 75, 60 }, new List<int>() { 50, 65, 77, 90, 102 })); // [6, 5, 4, 2, 1]
             //P.Print(ClimbingLeaderboard(new List<int>() { 100, 100, 50, 40, 40, 20, 10}, new List<int>() { 5, 25, 50, 120 })); // [6, 4, 2, 1]
             //P.Print(ClimbingLeaderboard(new List<int>() { 100, 90, 90, 80}, new List<int>() { 70, 80, 105 })); // [4, 3, 1]
 
-            //Rolling hash?
+            //https://www.hackerrank.com/challenges/compare-the-triplets
+            //P.Print(compareTriplets(new List<int>() { 5, 6, 7 }, new List<int>() { 3, 6, 10 })); // [1, 1]
+            //P.Print(compareTriplets(new List<int>() { 17, 28, 30 }, new List<int>() { 99, 16, 8 })); // [2, 1]
+        }
+
+        private static List<int> compareTriplets(List<int> a, List<int> b)
+        {
+            var aScore = 0;
+            var bScore = 0;
+            for(int i = 0; i < a.Count; i++)
+            {
+                var diff = a[i] - b[i];
+                if (diff > 0)
+                    aScore++;
+                else if (diff < 0)
+                    bScore++;
+            }
+            return new List<int>() { aScore, bScore };
         }
 
         private static List<int> ClimbingLeaderboard(List<int> ranked, List<int> player)

@@ -127,5 +127,13 @@ namespace dynamic_programming
             }
             Console.WriteLine("]");
         }
+
+        internal static void Print(List<int> list)
+        {
+            Console.Write("[ ");
+            foreach (var a in list)
+                Console.Write(a + " ");
+            Console.WriteLine(" ]");
+        }
     }
 }
