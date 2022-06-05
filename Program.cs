@@ -204,10 +204,20 @@ namespace dynamic_programming
             //P.Print(formingMagicSquare( new List<List<int>>() { new List<int>() { 4, 9, 2}, new List<int>() { 1, 5, 8}, new List<int>() { 6, 4, 2} } )); //4
 
             //https://www.hackerrank.com/challenges/encryption/problem?isFullScreen=true
-            P.Print(encryption("haveaniceday")); // hae and via ecy
+            //P.Print(encryption("haveaniceday")); // hae and via ecy
 
-            //https://www.hackerrank.com/challenges/flipping-bits/problem?isFullScreen=true
+            //https://www.hackerrank.com/challenges/flipping-bits/problem?isFullScreen=true            
+            P.Print(flippingBits(2147483647)); //2147483648
+            P.Print(flippingBits(1)); //4294967294
+            P.Print(flippingBits(0)); //4294967295
         }
+
+        public static long flippingBits(long n)
+        {
+            // xD
+            return 4294967295 - n;
+        }
+
 
         public static string encryption(string s)
         {
