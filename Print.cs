@@ -135,5 +135,10 @@ namespace dynamic_programming
                 Console.Write(a + " ");
             Console.WriteLine(" ]");
         }
+
+        internal static void Print(string s)
+        {
+            Console.Write(s);
+        }
     }
 }

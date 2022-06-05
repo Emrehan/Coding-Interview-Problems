@@ -204,8 +204,31 @@ namespace dynamic_programming
             //P.Print(formingMagicSquare( new List<List<int>>() { new List<int>() { 4, 9, 2}, new List<int>() { 1, 5, 8}, new List<int>() { 6, 4, 2} } )); //4
 
             //https://www.hackerrank.com/challenges/encryption/problem?isFullScreen=true
-        
+            P.Print(encryption("haveaniceday")); // hae and via ecy
+
             //https://www.hackerrank.com/challenges/flipping-bits/problem?isFullScreen=true
+        }
+
+        public static string encryption(string s)
+        {
+            s = s.Replace(" ", "");
+
+            int r = (int)Math.Floor(Math.Sqrt(s.Length));
+            int c = (int)Math.Ceiling(Math.Sqrt(s.Length));
+
+            if (r * c < s.Length)
+                r = c;
+
+            string result = "";
+            for (int i = 0; i < c; i++)
+            {
+                for (int j = 0; j < r; j++)
+                    if (i + j * c < s.Length)
+                        result += s[i + j * c];
+                result += " ";
+            }
+
+            return result;
         }
 
         public static int formingMagicSquare(List<List<int>> s)
