@@ -240,6 +240,14 @@ namespace dynamic_programming
             //P.Print(biggerIsGreater("hefg")); //hegf
             //P.Print(biggerIsGreater("dhck")); //dhkc
             //P.Print(biggerIsGreater("dkhc")); //hcdk
+
+            //https://www.hackerrank.com/challenges/matrix-rotation-algo/problem?isFullScreen=true
+
+        }
+
+        public static void matrixRotation(List<List<int>> matrix, int r)
+        {
+
         }
 
         public static string biggerIsGreater(string w)
