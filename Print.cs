@@ -138,7 +138,7 @@ namespace dynamic_programming
 
         internal static void Print(string s)
         {
-            Console.Write(s);
+            Console.WriteLine(s);
         }
     }
 }

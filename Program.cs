@@ -207,9 +207,66 @@ namespace dynamic_programming
             //P.Print(encryption("haveaniceday")); // hae and via ecy
 
             //https://www.hackerrank.com/challenges/flipping-bits/problem?isFullScreen=true            
-            P.Print(flippingBits(2147483647)); //2147483648
-            P.Print(flippingBits(1)); //4294967294
-            P.Print(flippingBits(0)); //4294967295
+            //P.Print(flippingBits(2147483647)); //2147483648
+            //P.Print(flippingBits(1)); //4294967294
+            //P.Print(flippingBits(0)); //4294967295
+
+            //https://www.hackerrank.com/challenges/organizing-containers-of-balls/problem?isFullScreen=true
+            //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 1, 3, 1 }, new List<int>() { 2, 1, 2 }, new List<int>() { 3, 3, 3 } })); //Impossible
+            //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 0, 2, 1 }, new List<int>() { 1, 1, 1 }, new List<int>() { 2, 0, 0 } })); //Possible
+            //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 1 } })); //Possible
+            //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 2 } })); //Possible
+            //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 0, 1 }, new List<int>() { 1, 0 } })); //Possible
+            //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 2, 0 }, new List<int>() { 4, 0 } })); //Possible
+            //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 1, 1 }, new List<int>() { 1, 1 } })); //Possible
+            //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 0, 2 }, new List<int>() { 1, 1 } })); //Impossible
+        }
+
+        public static string organizingContainers(List<List<int>> container)
+        {
+            List<int> containerInfo = new int[container.Count].ToList();
+            List<int> ballInfo = new int[container.Count].ToList();
+
+            for (int c = 0; c < container.Count; c++)
+            {
+                for (int b = 0; b < container[c].Count; b++)
+                {
+                    if (container[c][b] != 0)
+                    {
+                        containerInfo[c] += container[c][b];
+                        ballInfo[b] += container[c][b];
+                    }
+                }
+            }
+
+            ballInfo = ballInfo.OrderByDescending(c => c).ToList();
+            containerInfo = containerInfo.OrderByDescending(c => c).ToList();
+
+            for (int i = 0; i < ballInfo.Count; i++)
+            {
+                //No ball to place, go new ball
+                if (ballInfo[i] <= 0) continue;
+
+                for (int c = 0; c < containerInfo.Count; c++)
+                {
+                    //Not enough space to place
+                    if (containerInfo[c] <= 0) continue;
+
+                    //Place some/all of balls to this container
+                    ballInfo[i] -= containerInfo[c];
+                    containerInfo[c] = 0;
+
+                    //All balls placed, go new ball
+                    if (ballInfo[i] <= 0)
+                        break;
+                }
+
+                //There are still balls thats not placed.
+                if (ballInfo[i] > 0) return "Impossible";
+            }
+
+            //All balls are placed.
+            return "Possible";
         }
 
         public static long flippingBits(long n)
