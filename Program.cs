@@ -151,7 +151,7 @@ namespace dynamic_programming
             directGraph.Add('B', new char[] { 'D', 'C' });
             directGraph.Add('C', new char[] { 'E' });
             directGraph.Add('D', new char[] { 'F' });
-            directGraph.Add('E', new char[] {  });
+            directGraph.Add('E', new char[] { });
             directGraph.Add('F', new char[] { 'G' });
             directGraph.Add('G', new char[] { });
             directGraph.Add('H', new char[] { });
@@ -220,7 +220,98 @@ namespace dynamic_programming
             //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 2, 0 }, new List<int>() { 4, 0 } })); //Possible
             //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 1, 1 }, new List<int>() { 1, 1 } })); //Possible
             //P.Print(organizingContainers(new List<List<int>>() { new List<int>() { 0, 2 }, new List<int>() { 1, 1 } })); //Impossible
+
+            //https://www.hackerrank.com/challenges/the-grid-search/problem?isFullScreen=true
+            //P.Print(gridSearch( //YES
+            //    new List<string>() { "7283455864", "6731158619", "8988242643", "3830589324", "2229505813", "5633845374", "6473530293", "7053106601", "0834282956", "4607924137" }, 
+            //    new List<string>() { "9505", "3845", "3530"})); 
+
+            //P.Print(gridSearch( //YES
+            //    new List<string>() { "999999", "121211" }, 
+            //    new List<string>() { "99", "11"})); 
+
+            //P.Print(gridSearch( //YES
+            //    new List<string>() { "123412", "561212", "123634", "781288" }, 
+            //    new List<string>() { "12", "34"})); 
+
+            //https://www.hackerrank.com/challenges/bigger-is-greater/problem?isFullScreen=true
+            //P.Print(biggerIsGreater("ab")); //ba
+            //P.Print(biggerIsGreater("bb")); //no answer
+            //P.Print(biggerIsGreater("hefg")); //hegf
+            //P.Print(biggerIsGreater("dhck")); //dhkc
+            //P.Print(biggerIsGreater("dkhc")); //hcdk
         }
+
+        public static string biggerIsGreater(string w)
+        {
+            int prev = w.Length - 1;
+            bool found = false;
+            for(int i = w.Length - 2; i >= 0; i--)
+            {
+                if(w[i] < w[prev])
+                {
+                    found = true;
+                    prev = i;
+                    break;
+                }
+
+                prev = i;
+            }
+
+            if (prev == 0 && !found) return "no answer";
+
+            var result = w.Substring(0, prev);
+
+            var newChars = w.Substring(prev, w.Length - prev).ToList();
+            newChars.Sort();
+
+            var newHead = newChars.First(f => f > w[prev]);
+            newChars.Remove(newHead);
+
+            result += newHead;
+            foreach (var ch in newChars)
+                result += ch;
+
+            return result;
+        }
+
+        public static string gridSearch(List<string> G, List<string> P)
+        {
+            for(int i = 0; i < G.Count - P.Count + 1; i++)
+            {
+                var allowCheck = true;
+                for(int control = 0; control < P.Count; control++)
+                {
+                    if (!G[i + control].Contains(P[control]))
+                    {
+                        allowCheck = false;
+                        break;
+                    }
+                }
+                if (!allowCheck) continue;
+
+                
+                for(int j = 0; j < G[i].Length - P[0].Length + 1; j++)
+                {
+                    if (G[i].Substring(j, P[0].Length).Equals(P[0]))
+                    {
+                        bool found = true;
+                        for(int jj = 1; jj < P.Count; jj++)
+                        {
+                            if (!G[i+jj].Substring(j, P[jj].Length).Equals(P[jj]))
+                            {
+                                found = false;
+                                break;
+                            }
+                        }
+                        if (found) return "YES";
+                    }
+                }
+            }
+
+            return "NO";
+        }
+
 
         public static string organizingContainers(List<List<int>> container)
         {
