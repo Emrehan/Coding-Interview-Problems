@@ -242,12 +242,99 @@ namespace dynamic_programming
             //P.Print(biggerIsGreater("dkhc")); //hcdk
 
             //https://www.hackerrank.com/challenges/matrix-rotation-algo/problem?isFullScreen=true
-
+            //matrixRotation(new List<List<int>>()
+            //{
+            //    new List<int>() { 1, 2, 3, 4 },     // 3  4  8  12
+            //    new List<int>() { 5, 6, 7, 8 },     // 2 11 10  16
+            //    new List<int>() { 9, 10, 11, 12 },  // 1  7  6  15
+            //    new List<int>() { 13, 14, 15, 16 }  // 5  9 13  14
+            //}, 2); 
+            
+            //matrixRotation(new List<List<int>>()
+            //{
+            //    new List<int>() { 1, 2, 3, 4 },      // 28  27  26  25
+            //    new List<int>() { 7, 8, 9, 10 },     // 22   9  15  19
+            //    new List<int>() { 13, 14, 15, 16 },  // 16   8  21  13
+            //    new List<int>() { 19, 20, 21, 22 },  // 10  14  20   7
+            //    new List<int>() { 25, 26, 27, 28 },  //  4   3   2   1
+            //}, 7); 
         }
 
         public static void matrixRotation(List<List<int>> matrix, int r)
         {
+            var rowN = matrix.Count;
+            var colN = matrix[0].Count;
 
+            for (int i = 0; i < Math.Min(colN, rowN) / 2; i++)
+            {
+                matrix = Rotate(matrix, i, r);
+            }
+
+            foreach (var row in matrix)
+            {
+                foreach (var col in row)
+                    Console.Write(col + " ");
+                Console.WriteLine("");
+            }
+        }
+
+        public static List<List<int>> Rotate(List<List<int>> matrix, int indis, int r)
+        {
+            var rowN = matrix.Count - 2 * indis;
+            var colN = matrix[0].Count - 2 * indis;
+            var all = ((colN + rowN - 2) * 2);
+            r = r % all;
+
+            var newMatrix = matrix.Select(x => x.ToList()).ToList();
+
+            int i = indis;
+            int j = indis;
+            for (int x = 0; x < all; x++)
+            {
+                var iteratedPosition = calculateNewPosition(i, j, colN, rowN, r, indis);
+
+                newMatrix[iteratedPosition.Item1][iteratedPosition.Item2] = matrix[i][j];
+
+                var nextPosition = calculateNewPosition(i, j, colN, rowN, 1, indis);
+                i = nextPosition.Item1;
+                j = nextPosition.Item2;
+            }
+            return newMatrix;
+        }
+
+        private static Tuple<int, int> calculateNewPosition(int r, int c, int colN, int rowN, int turn, int indis)
+        {
+            bool increase = true;
+            bool useCol = true;
+                       
+            for (int i = 0; i < turn; i++)
+            {
+                if(c == indis && r != rowN + indis - 1)
+                {
+                    increase = true;
+                    useCol = false;
+                }
+                else if(r == rowN + indis - 1 && c != colN + indis - 1)
+                {
+                    increase = true;
+                    useCol = true;
+                }
+                else if(c == colN + indis - 1 && r != indis)
+                {
+                    increase = false;
+                    useCol = false;
+                }
+                else if (r == indis && c != indis)
+                {
+                    increase = false;
+                    useCol = true;
+                }
+
+                if (useCol) c = c + (increase ? 1 : -1);
+                if (!useCol) r = r + (increase ? 1 : -1);
+            }
+
+            return Tuple.Create(r, c);
         }
 
         public static string biggerIsGreater(string w)
