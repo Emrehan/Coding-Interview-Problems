@@ -249,7 +249,7 @@ namespace dynamic_programming
             //    new List<int>() { 9, 10, 11, 12 },  // 1  7  6  15
             //    new List<int>() { 13, 14, 15, 16 }  // 5  9 13  14
             //}, 2); 
-            
+
             //matrixRotation(new List<List<int>>()
             //{
             //    new List<int>() { 1, 2, 3, 4 },      // 28  27  26  25
@@ -258,6 +258,50 @@ namespace dynamic_programming
             //    new List<int>() { 19, 20, 21, 22 },  // 10  14  20   7
             //    new List<int>() { 25, 26, 27, 28 },  //  4   3   2   1
             //}, 7); 
+
+            //https://leetcode.com/problems/additive-number/
+            P.Print(additiveNumber("112358")); //true
+            //P.Print(additiveNumber("199100199")); //true
+        }
+
+        private static bool additiveNumber(string num)
+        {
+            if (num.Length < 3) return false;
+
+            for(int i = 1; i < num.Length - 2; i++)
+            {
+                for(int j = 1; j < num.Length - 2; j++)
+                {
+                    for(int k = 1; k < num.Length - i - j + 1; k++)
+                    {
+                        var num1 = num.Substring(0, i);
+                        var num2 = num.Substring(i, j);
+                        var num3 = num.Substring(i + j, k);
+
+                        Console.WriteLine(num1 + " " + num2 + " " + num3);
+                        if (!IsValid(num1, num2, num3)) continue;
+                    }
+                }
+            }
+
+            return false;
+        }
+        /*
+        i j k  
+        0 0 0  0>1 1>1 2>1
+        0 0 1  0>1 1>1 2>2
+        0 0 2
+        0 0 .
+        0 1 0
+         */
+
+        private static bool IsValid(string num1, string num2, string num3)
+        {
+            if (num3.Length < num2.Length || num3.Length < num1.Length) return false;
+            if (num3.StartsWith("0") || num2.StartsWith("0") || num1.StartsWith("0")) return false;
+            if (Math.Max(num1.Length, num2.Length) + 1 != num3.Length && Math.Max(num1.Length, num2.Length) != num3.Length) return false;
+            
+            return true;
         }
 
         public static void matrixRotation(List<List<int>> matrix, int r)
