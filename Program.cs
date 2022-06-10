@@ -264,6 +264,51 @@ namespace dynamic_programming
             //P.Print(additiveNumber("199100199")); //true
             //P.Print(additiveNumber("199100")); //true
             //P.Print(additiveNumber("101")); //true
+
+            //https://leetcode.com/problems/longest-substring-without-repeating-characters/            
+            //P.Print(LengthOfLongestSubstring("abcabcbb")); //3
+            //P.Print(LengthOfLongestSubstring("bbbbb")); //1
+            //P.Print(LengthOfLongestSubstring("pwwkew")); //3
+            //P.Print(LengthOfLongestSubstring("")); //0
+            //P.Print(LengthOfLongestSubstring("a")); //1
+            //P.Print(LengthOfLongestSubstring("ab")); //2
+        }
+
+        //HashSet -> Time %87 Usage %27
+        //List    -> Time %78 Usage %29
+        public static int LengthOfLongestSubstring(string s)
+        {
+            int p = 0;
+            int back = 0;
+            int count = 0;
+            int maxCount = 0;
+            List<char> set = new List<char>();
+
+            while(p < s.Length)
+            {
+                var currentChar = s[p];
+                if (set.Contains(currentChar))
+                {
+                    if (count > maxCount)
+                        maxCount = count;
+
+                    while(set.Contains(currentChar))
+                    {
+                        set.Remove(s[back++]);
+                        count--;
+                    }
+                }
+                else
+                {
+                    set.Add(currentChar);
+                    p++;
+                    count++;
+                }
+            }
+            if (count > maxCount)
+                maxCount = count;
+
+            return maxCount;
         }
 
         private static bool additiveNumber(string num)
