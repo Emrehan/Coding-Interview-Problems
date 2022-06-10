@@ -260,48 +260,79 @@ namespace dynamic_programming
             //}, 7); 
 
             //https://leetcode.com/problems/additive-number/
-            P.Print(additiveNumber("112358")); //true
+            //P.Print(additiveNumber("112358")); //true
             //P.Print(additiveNumber("199100199")); //true
+            //P.Print(additiveNumber("199100")); //true
+            //P.Print(additiveNumber("101")); //true
         }
 
         private static bool additiveNumber(string num)
         {
             if (num.Length < 3) return false;
 
-            for(int i = 1; i < num.Length - 2; i++)
+            bool found = false;
+            for(int i = 1; i < num.Length - 1; i++)
             {
-                for(int j = 1; j < num.Length - 2; j++)
+                for(int j = 1; j < num.Length - 1; j++)
                 {
                     for(int k = 1; k < num.Length - i - j + 1; k++)
                     {
                         var num1 = num.Substring(0, i);
                         var num2 = num.Substring(i, j);
                         var num3 = num.Substring(i + j, k);
-
-                        Console.WriteLine(num1 + " " + num2 + " " + num3);
                         if (!IsValid(num1, num2, num3)) continue;
+                        found = true;
+
+                        var p = i + j + k;
+                        var search = SumTwoString(num2, num3);
+
+                        while(p < num.Length)
+                        {
+                            found = false;
+
+                            if (p + search.ToString().Length > num.Length) break;
+
+                            var check = num.Substring(p, search.ToString().Length);
+
+                            if (long.Parse(check) == search)
+                            {
+                                p += check.Length;
+                                num2 = num3;
+                                num3 = check;
+                                search = SumTwoString(num2, num3);
+
+                                found = true;
+                            }
+                            else
+                            {
+                                found = false;
+                                break;
+                            }
+                        }
+
+                        if (found) return true;
+
                     }
                 }
             }
 
-            return false;
+            return found;
         }
-        /*
-        i j k  
-        0 0 0  0>1 1>1 2>1
-        0 0 1  0>1 1>1 2>2
-        0 0 2
-        0 0 .
-        0 1 0
-         */
+
+        private static long SumTwoString(string num1, string num2)
+        {
+            return long.Parse(num1) + long.Parse(num2);
+        }
 
         private static bool IsValid(string num1, string num2, string num3)
         {
             if (num3.Length < num2.Length || num3.Length < num1.Length) return false;
-            if (num3.StartsWith("0") || num2.StartsWith("0") || num1.StartsWith("0")) return false;
+            if (num3.StartsWith("0") && num3.Length != 1) return false;
+            if (num2.StartsWith("0") && num2.Length != 1) return false;
+            if (num1.StartsWith("0") && num1.Length != 1) return false;
             if (Math.Max(num1.Length, num2.Length) + 1 != num3.Length && Math.Max(num1.Length, num2.Length) != num3.Length) return false;
-            
-            return true;
+
+            return long.Parse(num1) + long.Parse(num2) == long.Parse(num3);
         }
 
         public static void matrixRotation(List<List<int>> matrix, int r)
