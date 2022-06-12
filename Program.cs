@@ -297,6 +297,36 @@ namespace dynamic_programming
             //P.Print(TwoSum(new int[] { 2, 7, 11, 15 }, 9)); // [1, 2]
             //P.Print(TwoSum(new int[] { 2, 3, 4 }, 6)); // [1, 3]
             //P.Print(TwoSum(new int[] { -1, 0 }, -1)); // [1, 2]
+
+            //https://leetcode.com/problems/remove-palindromic-subsequences/
+            //P.Print(RemovePalindromeSub("ababa")); //1
+            //P.Print(RemovePalindromeSub("abb")); //2
+            //P.Print(RemovePalindromeSub("baabb")); //2
+        }
+
+        public static int RemovePalindromeSub(string s)
+        {
+            if (IsPalindrome(s)) return 1;
+            return 2;
+        }
+
+        private static bool IsPalindrome(string v)
+        {
+            int l = 0;
+            int r = v.Length - 1;
+
+            while(l <= r)
+            {
+                if (v[l] != v[r])
+                {
+                    return false;
+                }
+
+                l++;
+                r--;
+            }
+
+            return true;
         }
 
         public static int[] TwoSum(int[] numbers, int target)
