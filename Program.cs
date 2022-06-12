@@ -288,6 +288,41 @@ namespace dynamic_programming
             //P.Print(MinOperations2(new int[] { 5, 6, 7, 8, 9}, 4)); // -1
             //P.Print(MinOperations2(new int[] { 5, 6, 7, 8, 9}, 4)); // -1
             //P.Print(MinOperations2(new int[] { 3, 2, 20, 1, 1, 3}, 10)); // 5
+
+            //https://leetcode.com/problems/maximum-erasure-value/
+            //P.Print(MaximumUniqueSubarray(new int[] { 4, 2, 4, 5, 6 })); //17
+            //P.Print(MaximumUniqueSubarray(new int[] { 5, 2, 1, 2, 5, 2, 1, 2, 5 })); //8
+        }
+
+        public static int MaximumUniqueSubarray(int[] nums)
+        {
+            int l = 0, r = 0, maxSum = -1;
+            HashSet<int> table = new HashSet<int>();
+            int currentSum = 0;
+
+            while(r < nums.Length)
+            {
+                if(!table.Contains(nums[r]))
+                {
+                    table.Add(nums[r]);
+                    currentSum += nums[r];
+                    r++;
+
+                    if (currentSum > maxSum)
+                        maxSum = currentSum;
+                }
+                else
+                {
+                    while(table.Contains(nums[r]))
+                    {
+                        currentSum -= nums[l];
+                        table.Remove(nums[l]);
+                        l++;
+                    }
+                }
+            }
+
+            return maxSum;
         }
 
         public static int MinOperations(int[] nums, int x, Dictionary<string, int> lookup = null)
