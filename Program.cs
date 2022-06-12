@@ -292,6 +292,27 @@ namespace dynamic_programming
             //https://leetcode.com/problems/maximum-erasure-value/
             //P.Print(MaximumUniqueSubarray(new int[] { 4, 2, 4, 5, 6 })); //17
             //P.Print(MaximumUniqueSubarray(new int[] { 5, 2, 1, 2, 5, 2, 1, 2, 5 })); //8
+
+            //https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+            //P.Print(TwoSum(new int[] { 2, 7, 11, 15 }, 9)); // [1, 2]
+            //P.Print(TwoSum(new int[] { 2, 3, 4 }, 6)); // [1, 3]
+            //P.Print(TwoSum(new int[] { -1, 0 }, -1)); // [1, 2]
+        }
+
+        public static int[] TwoSum(int[] numbers, int target)
+        {
+            int l = 0, r = numbers.Length - 1;
+
+            int sum = numbers[l] + numbers[r];
+            while (sum != target)
+            {
+                if (sum > target) r--;
+                else l++;
+
+                sum = numbers[l] + numbers[r];
+            }
+
+            return new int[] { l + 1, r + 1 };
         }
 
         public static int MaximumUniqueSubarray(int[] nums)
