@@ -7,19 +7,8 @@ namespace dynamic_programming
     public static class P
     {
         public static void Print(int[] nums)
-        {
-            if (nums == null)
-            {
-                Console.WriteLine("null");
-                return;
-            }
-
-            var str = "";
-            foreach (var num in nums)
-            {
-                str += num + " ";
-            }
-            Console.WriteLine(str);
+        {                        
+            Console.WriteLine($"[{string.Join(",", nums)}]");
         }
 
         public static void Print(int num)

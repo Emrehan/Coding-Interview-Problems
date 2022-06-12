@@ -302,6 +302,38 @@ namespace dynamic_programming
             //P.Print(RemovePalindromeSub("ababa")); //1
             //P.Print(RemovePalindromeSub("abb")); //2
             //P.Print(RemovePalindromeSub("baabb")); //2
+
+            //https://leetcode.com/problems/merge-sorted-array/
+            //P.Print(Merge(new int[] { 1, 2, 3, 0, 0, 0 }, 3, new int[] { 2, 5, 6 }, 3)); // [1, 2, 2, 3, 5, 6]
+            //P.Print(Merge(new int[] { 1 }, 1, new int[] { }, 0)); // [1]
+            //P.Print(Merge(new int[] { 0 }, 0, new int[] { 1 }, 1)); // [1]
+            //P.Print(Merge(new int[] { 0 }, 0, new int[] { 0 }, 0)); // []
+        }
+
+        public static int[] Merge(int[] nums1, int m, int[] nums2, int n)
+        {
+            int[] arr = new int[m + n];
+            int c = 0;
+
+            int p1 = 0;
+            int p2 = 0;
+
+            while (p1 < m && p2 < n)
+            {
+                if (nums1[p1] <= nums2[p2])
+                    arr[c++] = nums1[p1++];
+                else
+                    arr[c++] = nums2[p2++];
+            }
+
+            while (p1 < m)
+                arr[c++] = nums1[p1++];
+
+            while (p2 < n)
+                arr[c++] = nums2[p2++];
+
+            nums1 = arr;
+            return nums1;
         }
 
         public static int RemovePalindromeSub(string s)
