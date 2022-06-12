@@ -272,6 +272,93 @@ namespace dynamic_programming
             //P.Print(LengthOfLongestSubstring("")); //0
             //P.Print(LengthOfLongestSubstring("a")); //1
             //P.Print(LengthOfLongestSubstring("ab")); //2
+
+            //https://leetcode.com/problems/trapping-rain-water/
+            //P.Print(Trap(new List<int>() { 4, 2, 0, 3, 2, 5 })); //9
+            //P.Print(Trap(new List<int>() { 0, 1, 2, 1, 0, 1, 2, 0, 2 })); //6
+            //P.Print(Trap(new List<int>() { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 })); //6
+
+            //https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/
+            //P.Print(MinOperations(new int[] { 1, 1, 4, 2, 3}, 5)); // 2
+            //P.Print(MinOperations(new int[] { 5, 6, 7, 8, 9}, 4)); // -1
+            //P.Print(MinOperations(new int[] { 5, 6, 7, 8, 9}, 4)); // -1
+            //P.Print(MinOperations(new int[] { 3, 2, 20, 1, 1, 3}, 10)); // 5
+
+            //P.Print(MinOperations2(new int[] { 1, 1, 4, 2, 3}, 5)); // 2
+            //P.Print(MinOperations2(new int[] { 5, 6, 7, 8, 9}, 4)); // -1
+            //P.Print(MinOperations2(new int[] { 5, 6, 7, 8, 9}, 4)); // -1
+            //P.Print(MinOperations2(new int[] { 3, 2, 20, 1, 1, 3}, 10)); // 5
+        }
+
+        public static int MinOperations(int[] nums, int x, Dictionary<string, int> lookup = null)
+        {
+            if (lookup == null) lookup = new Dictionary<string, int>();
+
+            var key = string.Join("-", nums) + ":" + x;
+            if (lookup.ContainsKey(key)) return lookup[key];
+            if (x == 0) return 0;
+            if (x < 0) return -1;
+            if (nums.Length == 0) return -1;
+
+            int bestTotalOp = int.MaxValue;
+
+            var firstValue = MinOperations(nums.Skip(1).ToArray(), x - nums[0], lookup);
+            lookup[string.Join("-", nums.Skip(1)) + ":" + x] = firstValue;
+            if (firstValue != -1 && firstValue <= bestTotalOp)
+                bestTotalOp = firstValue;
+
+            var lastValue = MinOperations(nums.Take(nums.Count() - 1).ToArray(), x - nums[nums.Length - 1], lookup);
+            lookup[string.Join("-", nums.Take(nums.Count() - 1)) + ":" + x] = lastValue;
+            if (lastValue != -1 && lastValue <= bestTotalOp)
+                bestTotalOp = lastValue;
+
+            return bestTotalOp == int.MaxValue ? -1 : (bestTotalOp + 1);
+        }
+
+        public static int MinOperations2(int[] nums, int x)
+        {
+            int l = 0;
+            int r = 0;
+            int target = nums.Sum() - x;
+
+            int max = -1;
+            int currentSum = 0;
+            for(r = 0; r < nums.Length; r++)
+            {
+                currentSum += nums[r];
+                while (l <= r && currentSum > target) currentSum -= nums[l++];
+                if (currentSum == target) max = Math.Max(max, r - l + 1);
+            }
+            return max == -1 ? -1 : nums.Length - max;
+        }
+
+        private static int Trap(List<int> list)
+        {
+            bool trapStart = false;
+            int trapStartValue = 0;
+            int totalWaterTrapped = 0;
+            int potansielWaterTrapped = 0;
+
+            for(int i = 1; i < list.Count; i++)
+            {
+                if(list[i] < list[i - 1] && !trapStart)
+                {
+                    trapStart = true;
+                    trapStartValue = list[i-1];
+                }
+
+                if (list[i] >= trapStartValue)
+                {
+                    trapStart = false;
+                    totalWaterTrapped += potansielWaterTrapped;
+                    potansielWaterTrapped = 0;
+                }
+
+                if (trapStart)
+                    potansielWaterTrapped += trapStartValue - list[i]; 
+            }
+
+            return totalWaterTrapped;
         }
 
         //HashSet -> Time %87 Usage %27
