@@ -314,6 +314,40 @@ namespace dynamic_programming
             //IList<IList<int>> tc2 = new List<IList<int>>() { new List<int>() { 2 }, new List<int>() { 3, 4 }, new List<int>() { 6, 5, 7 }, new List<int>() { 4, 1, 8, 3 } };
             //P.Print(MinimumTotal(tc1)); // -10
             //P.Print(MinimumTotal(tc2)); // 11
+
+            //https://www.hackerrank.com/challenges/circular-palindromes/problem?isFullScreen=true
+            P.Print(circularPalindromes("cacbbba")); //3 3 3 3 3 3 3
+            //P.Print(circularPalindromes"aaaaabbbbaaaa")); //12 12 10 8 8 9 11 13 11 9 8 8 10
+        }
+        static Dictionary<string, int> lookup = new Dictionary<string, int>();
+        public static List<int> circularPalindromes(string s)
+        {
+            List<int> result = new List<int>();
+            for(int i = 0; i < s.Length; i++)
+            {
+                result.Add(FindMaxPalindromes(s.Substring(i, s.Length - i) + s.Substring(0, i)));
+            }
+            return result;
+        }
+
+        private static int FindMaxPalindromes(string s)
+        {
+            if (lookup.ContainsKey(s)) return lookup[s];
+
+            for (int i = s.Length; i >= 2; i--)
+            {
+                for (int j = 0; j < s.Length - i + 1; j++)
+                {                    
+                    if (IsPalindrome(s.Substring(j, i)))
+                    {
+                        lookup[s] = i;
+                        return i;
+                    }
+                }
+            }
+
+            lookup[s] = 1;
+            return 1;
         }
 
         public static int MinimumTotal(IList<IList<int>> triangle)
