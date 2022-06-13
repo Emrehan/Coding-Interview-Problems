@@ -308,6 +308,27 @@ namespace dynamic_programming
             //P.Print(Merge(new int[] { 1 }, 1, new int[] { }, 0)); // [1]
             //P.Print(Merge(new int[] { 0 }, 0, new int[] { 1 }, 1)); // [1]
             //P.Print(Merge(new int[] { 0 }, 0, new int[] { 0 }, 0)); // []
+
+            //https://leetcode.com/problems/triangle/
+            //IList<IList<int>> tc1 = new List<IList<int>>() { new List<int>() { -10 } };
+            //IList<IList<int>> tc2 = new List<IList<int>>() { new List<int>() { 2 }, new List<int>() { 3, 4 }, new List<int>() { 6, 5, 7 }, new List<int>() { 4, 1, 8, 3 } };
+            //P.Print(MinimumTotal(tc1)); // -10
+            //P.Print(MinimumTotal(tc2)); // 11
+        }
+
+        public static int MinimumTotal(IList<IList<int>> triangle)
+        {
+            if (triangle.Count == 1) return triangle[0][0];
+
+            for (int level = triangle.Count - 2; level >= 0; level--)
+            {
+                for (int j = 0; j < triangle[level].Count; j++)
+                {
+                    triangle[level][j] += Math.Min(triangle[level + 1][j], triangle[level + 1][j + 1]);
+                }
+            }
+
+            return triangle[0][0];
         }
 
         public static int[] Merge(int[] nums1, int m, int[] nums2, int n)
