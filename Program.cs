@@ -320,13 +320,82 @@ namespace dynamic_programming
             //P.Print(circularPalindromes"aaaaabbbbaaaa")); //12 12 10 8 8 9 11 13 11 9 8 8 10
 
             //https://leetcode.com/problems/n-queens-ii/submissions/
-            P.Print(TotalNQueens(1)); //1
-            P.Print(TotalNQueens(2)); //0
-            P.Print(TotalNQueens(3)); //0
-            P.Print(TotalNQueens(4)); //2
-            P.Print(TotalNQueens(5)); //10
-            P.Print(TotalNQueens(6)); //4
-            P.Print(TotalNQueens(9)); //352
+            //P.Print(TotalNQueens(1)); //1
+            //P.Print(TotalNQueens(2)); //0
+            //P.Print(TotalNQueens(3)); //0
+            //P.Print(TotalNQueens(4)); //2
+            //P.Print(TotalNQueens(5)); //10
+            //P.Print(TotalNQueens(6)); //4
+            //P.Print(TotalNQueens(9)); //352
+
+            #region Nodes
+            var c3 = new ListNode(5);
+            var c2 = new ListNode(4);
+            var c1 = new ListNode(8);
+
+            var a1 = new ListNode(4);
+            var a2 = new ListNode(1);
+
+            var b1 = new ListNode(5);
+            var b2 = new ListNode(6);
+            var b3 = new ListNode(1);
+
+            var headA = a1;
+            a1.next = a2;
+            a2.next = c1;
+
+            var headB = b1;
+            b1.next = b2;
+            b2.next = b3;
+            b3.next = c1;
+
+            c1.next = c2;
+            c2.next = c3;
+            #endregion
+            //https://leetcode.com/problems/intersection-of-two-linked-lists/
+            P.Print(GetIntersectionNode(headA, headB)); //8
+        }
+
+        public static ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            int lenA = CountLinkedList(headA);
+            int lenB = CountLinkedList(headB);
+
+            var pA = headA;
+            var pB = headB;
+
+            for (int i = 0; i < Math.Abs(lenA - lenB); i++)
+                if (lenA > lenB)
+                    pA = pA.next ?? headA;
+                else
+                    pB = pB.next ?? headB;
+
+            for (int j = 0; j < Math.Min(lenA, lenB); j++)
+            {
+                if (pA == pB)
+                {
+                    return pA;
+                }
+
+                pA = pA.next;
+                pB = pB.next;
+            }
+
+            return null;
+        }
+
+        public static int CountLinkedList(ListNode head)
+        {
+            int c = 1;
+
+            var temp = head;
+            while (temp != null)
+            {
+                temp = temp.next;
+                c++;
+            }
+
+            return c;
         }
 
         public static int TotalNQueens(int n, List<int> prev = null)
@@ -1660,5 +1729,12 @@ namespace dynamic_programming
 
             return arr2;
         }
+    }
+
+    public class ListNode
+    {
+        public int val;
+        public ListNode next;
+        public ListNode(int x) { val = x; }
     }
 }

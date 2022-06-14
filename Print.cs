@@ -129,5 +129,10 @@ namespace dynamic_programming
         {
             Console.WriteLine(s);
         }
+
+        public static void Print(ListNode s)
+        {
+            Console.WriteLine(s.val);
+        }
     }
 }
