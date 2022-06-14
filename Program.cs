@@ -316,9 +316,42 @@ namespace dynamic_programming
             //P.Print(MinimumTotal(tc2)); // 11
 
             //https://www.hackerrank.com/challenges/circular-palindromes/problem?isFullScreen=true
-            P.Print(circularPalindromes("cacbbba")); //3 3 3 3 3 3 3
+            //P.Print(circularPalindromes("cacbbba")); //3 3 3 3 3 3 3
             //P.Print(circularPalindromes"aaaaabbbbaaaa")); //12 12 10 8 8 9 11 13 11 9 8 8 10
+
+            //https://leetcode.com/problems/n-queens-ii/submissions/
+            P.Print(TotalNQueens(1)); //1
+            P.Print(TotalNQueens(2)); //0
+            P.Print(TotalNQueens(3)); //0
+            P.Print(TotalNQueens(4)); //2
+            P.Print(TotalNQueens(5)); //10
+            P.Print(TotalNQueens(6)); //4
+            P.Print(TotalNQueens(9)); //352
         }
+
+        public static int TotalNQueens(int n, List<int> prev = null)
+        {
+            if (prev == null) prev = new List<int>();
+            if (prev.Count == n) return 1;
+
+            var allMoves = Enumerable.Range(0, n).ToList();
+
+            for (int i = 0; i < prev.Count; i++)
+            {
+                allMoves.Remove(prev[i]);
+                allMoves.Remove(prev[i] + (prev.Count - i));
+                allMoves.Remove(prev[i] - (prev.Count - i));
+            }
+
+            int count = 0;
+            foreach (var nextMove in allMoves)
+            {
+                count += TotalNQueens(n, prev.Concat(new int[] { nextMove }).ToList());
+            }
+
+            return count;
+        }
+
         static Dictionary<string, int> lookup = new Dictionary<string, int>();
         public static List<int> circularPalindromes(string s)
         {
