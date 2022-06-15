@@ -378,9 +378,20 @@ namespace dynamic_programming
             //    new int[2] { 4, 2 } }, 7, 5));
 
             //https://leetcode.com/problems/longest-valid-parentheses/submissions/
-            P.Print(LongestValidParentheses("(()"));  //2
-            P.Print(LongestValidParentheses(")()())"));  //4
-            P.Print(LongestValidParentheses(""));  //0
+            //P.Print(LongestValidParentheses("(()"));  //2
+            //P.Print(LongestValidParentheses(")()())"));  //4
+            //P.Print(LongestValidParentheses(""));  //0
+
+            //https://leetcode.com/problems/missing-number/
+            P.Print(MissingNumber(new int[] { 3, 0, 1 })); //2
+            P.Print(MissingNumber(new int[] { 0, 1 })); //2
+            P.Print(MissingNumber(new int[] { 9, 6, 4, 2, 3, 5, 7, 0, 1 })); //8
+        }
+
+        public static int MissingNumber(int[] nums)
+        {
+            int n = nums.Length;
+            return (n * (n + 1)) / 2 - nums.Sum();
         }
 
         public static int LongestValidParentheses(string s)
