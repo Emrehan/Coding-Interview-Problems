@@ -353,7 +353,25 @@ namespace dynamic_programming
             c2.next = c3;
             #endregion
             //https://leetcode.com/problems/intersection-of-two-linked-lists/
-            P.Print(GetIntersectionNode(headA, headB)); //8
+            //P.Print(GetIntersectionNode(headA, headB)); //8
+
+            //https://leetcode.com/problems/find-the-town-judge/
+            P.Print(FindJudge(2, new int[1][] { new int[2] { 1, 2 } })); //2
+            P.Print(FindJudge(3, new int[2][] { new int[2] { 1, 3 }, new int[2] { 2, 3 } })); //3
+            P.Print(FindJudge(3, new int[3][] { new int[2] { 1, 3 }, new int[2] { 2, 3 }, new int[2] { 3, 1 } })); //-1
+        }
+
+        public static int FindJudge(int n, int[][] trust)
+        {
+
+            var judge = Enumerable.Range(1, n).ToList()
+                              .Where(p => !trust.Select(f => f[0]).Contains(p))
+                              .Where(t => trust.Where(f => f[1] == t).Distinct().Count() == n - 1)
+                              .FirstOrDefault();
+
+
+
+            return judge != 0 ? judge : -1;
         }
 
         public static ListNode GetIntersectionNode(ListNode headA, ListNode headB)
@@ -500,7 +518,7 @@ namespace dynamic_programming
         }
 
         private static bool IsPalindrome(string v)
-        {
+        {            
             int l = 0;
             int r = v.Length - 1;
 
