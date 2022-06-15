@@ -361,7 +361,51 @@ namespace dynamic_programming
             //P.Print(FindJudge(3, new int[3][] { new int[2] { 1, 3 }, new int[2] { 2, 3 }, new int[2] { 3, 1 } })); //-1
 
             //https://leetcode.com/problems/find-center-of-star-graph/
-            P.Print(FindCenter(new int[3][] { new int[2] { 1, 2 }, new int[2] { 2, 3 }, new int[2] { 4, 2 } }));
+            //P.Print(FindCenter(new int[3][] { new int[2] { 1, 2 }, new int[2] { 2, 3 }, new int[2] { 4, 2 } }));
+
+            //https://leetcode.com/problems/find-if-path-exists-in-graph/
+            P.Print(ValidPath(3, new int[3][] { new int[2] { 1, 2 }, new int[2] { 2, 3 }, new int[2] { 4, 2 } }, 0, 2));
+            P.Print(ValidPath(10, new int[10][] { 
+                new int[2] { 1, 2 }, 
+                new int[2] { 2, 3 }, 
+                new int[2] { 4, 2 }, 
+                new int[2] { 4, 2 }, 
+                new int[2] { 4, 2 },
+                new int[2] { 1, 2 }, 
+                new int[2] { 2, 3 }, 
+                new int[2] { 4, 2 }, 
+                new int[2] { 4, 2 }, 
+                new int[2] { 4, 2 } }, 7, 5));
+        }
+
+        public static bool ValidPath(int n, int[][] edges, int source, int destination)
+        {
+            HashSet<int> visited = new HashSet<int>();
+            Queue<int> Q = new Queue<int>();
+
+            Q.Enqueue(source);
+
+            while (Q.Count != 0)
+            {
+                var current = Q.Dequeue();
+                visited.Add(current);
+
+                if (current == destination)
+                    return true;
+
+                foreach (var nextEdges in edges.Where(f => f.Contains(current)))
+                {
+                    foreach (var a in nextEdges)
+                    {
+                        if(a != current && !visited.Contains(a))
+                        {
+                            Q.Enqueue(a);
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         public static int FindCenter(int[][] edges)
