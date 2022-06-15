@@ -356,9 +356,32 @@ namespace dynamic_programming
             //P.Print(GetIntersectionNode(headA, headB)); //8
 
             //https://leetcode.com/problems/find-the-town-judge/
-            P.Print(FindJudge(2, new int[1][] { new int[2] { 1, 2 } })); //2
-            P.Print(FindJudge(3, new int[2][] { new int[2] { 1, 3 }, new int[2] { 2, 3 } })); //3
-            P.Print(FindJudge(3, new int[3][] { new int[2] { 1, 3 }, new int[2] { 2, 3 }, new int[2] { 3, 1 } })); //-1
+            //P.Print(FindJudge(2, new int[1][] { new int[2] { 1, 2 } })); //2
+            //P.Print(FindJudge(3, new int[2][] { new int[2] { 1, 3 }, new int[2] { 2, 3 } })); //3
+            //P.Print(FindJudge(3, new int[3][] { new int[2] { 1, 3 }, new int[2] { 2, 3 }, new int[2] { 3, 1 } })); //-1
+
+            //https://leetcode.com/problems/find-center-of-star-graph/
+            P.Print(FindCenter(new int[3][] { new int[2] { 1, 2 }, new int[2] { 2, 3 }, new int[2] { 4, 2 } }));
+        }
+
+        public static int FindCenter(int[][] edges)
+        {
+            HashSet<int> edgeSet = new HashSet<int>();
+
+            foreach (var edge in edges)
+            {
+                if (edgeSet.Contains(edge[0]))
+                    return edge[0];
+                else
+                    edgeSet.Add(edge[0]);
+
+                if (edgeSet.Contains(edge[1]))
+                    return edge[1];
+                else
+                    edgeSet.Add(edge[1]);
+            }
+
+            return -1;
         }
 
         public static int FindJudge(int n, int[][] trust)
