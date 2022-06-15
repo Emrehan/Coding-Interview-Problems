@@ -364,18 +364,67 @@ namespace dynamic_programming
             //P.Print(FindCenter(new int[3][] { new int[2] { 1, 2 }, new int[2] { 2, 3 }, new int[2] { 4, 2 } }));
 
             //https://leetcode.com/problems/find-if-path-exists-in-graph/
-            P.Print(ValidPath(3, new int[3][] { new int[2] { 1, 2 }, new int[2] { 2, 3 }, new int[2] { 4, 2 } }, 0, 2));
-            P.Print(ValidPath(10, new int[10][] { 
-                new int[2] { 1, 2 }, 
-                new int[2] { 2, 3 }, 
-                new int[2] { 4, 2 }, 
-                new int[2] { 4, 2 }, 
-                new int[2] { 4, 2 },
-                new int[2] { 1, 2 }, 
-                new int[2] { 2, 3 }, 
-                new int[2] { 4, 2 }, 
-                new int[2] { 4, 2 }, 
-                new int[2] { 4, 2 } }, 7, 5));
+            //P.Print(ValidPath(3, new int[3][] { new int[2] { 1, 2 }, new int[2] { 2, 3 }, new int[2] { 4, 2 } }, 0, 2));
+            //P.Print(ValidPath(10, new int[10][] { 
+            //    new int[2] { 1, 2 }, 
+            //    new int[2] { 2, 3 }, 
+            //    new int[2] { 4, 2 }, 
+            //    new int[2] { 4, 2 }, 
+            //    new int[2] { 4, 2 },
+            //    new int[2] { 1, 2 }, 
+            //    new int[2] { 2, 3 }, 
+            //    new int[2] { 4, 2 }, 
+            //    new int[2] { 4, 2 }, 
+            //    new int[2] { 4, 2 } }, 7, 5));
+
+            //https://leetcode.com/problems/longest-valid-parentheses/submissions/
+            P.Print(LongestValidParentheses("(()"));  //2
+            P.Print(LongestValidParentheses(")()())"));  //4
+            P.Print(LongestValidParentheses(""));  //0
+        }
+
+        public static int LongestValidParentheses(string s)
+        {
+            int left = 0;
+            int right = 0;
+            int max = 0;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                    left++;
+                else
+                    right++;
+
+                if (left == right)
+                    max = Math.Max(max, right * 2);
+                else if (right > left)
+                {
+                    left = 0;
+                    right = 0;
+                }
+            }
+
+            left = 0;
+            right = 0;
+
+            for (int i = s.Length - 1; i >= 0; i--)
+            {
+                if (s[i] == '(')
+                    left++;
+                else
+                    right++;
+
+                if (left == right)
+                    max = Math.Max(max, right * 2);
+                else if (right < left)
+                {
+                    left = 0;
+                    right = 0;
+                }
+            }
+
+            return max;
         }
 
         public static bool ValidPath(int n, int[][] edges, int source, int destination)
