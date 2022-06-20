@@ -388,9 +388,60 @@ namespace dynamic_programming
             //P.Print(MissingNumber(new int[] { 9, 6, 4, 2, 3, 5, 7, 0, 1 })); //8
 
             //https://leetcode.com/problems/short-encoding-of-words/
-            P.Print(MinimumLengthEncoding(new string[] { "time", "me", "bell" })); //10
-            P.Print(MinimumLengthEncoding(new string[] { "t" })); //2
+            //P.Print(MinimumLengthEncoding(new string[] { "time", "me", "bell" })); //10
+            //P.Print(MinimumLengthEncoding(new string[] { "t" })); //2
+
+            var x_d1 = new TreeNode(7);
+            var x_d2 = new TreeNode(15);
+            var x_c1 = new TreeNode(20, x_d2, x_d1);
+            var x_c2 = new TreeNode(9);
+            var x_root = new TreeNode(3, x_c2, x_c1);
+            //https://leetcode.com/problems/average-of-levels-in-binary-tree/
+            P.Print(AverageOfLevels(x_root).Select(f => f.ToString()).ToList()); //[3, 14.5, 11]
+
         }
+
+        public static IList<double> AverageOfLevels(TreeNode root)
+        {
+            var Q = new Queue<TreeNode>();
+            Q.Enqueue(root);
+            Q.Enqueue(null);
+
+            int count = 0;
+            long sum = 0;
+            var avgLevels = new List<Double>();
+
+            while (Q.Count != 0)
+            {
+                var current = Q.Dequeue();
+
+                if (current == null)
+                {
+                    if (count != 0)
+                    {
+                        //Console.WriteLine($"çizgi geldi {sum} {count}" );
+
+                        avgLevels.Add((double)sum / count);
+                        sum = 0;
+                        count = 0;
+                        Q.Enqueue(null);
+                    }
+                }
+                else
+                {
+                    sum += current.val;
+                    count++;
+
+                    //Console.WriteLine($"{current.val} geldi {sum} {count}" );
+
+                    if (current.left != null) Q.Enqueue(current.left);
+                    if (current.right != null) Q.Enqueue(current.right);
+                }
+            }
+
+            return avgLevels;
+        }
+
 
         public static int MinimumLengthEncoding(string[] words)
         {
@@ -1900,4 +1951,16 @@ namespace dynamic_programming
         public ListNode next;
         public ListNode(int x) { val = x; }
     }
+
+    public class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+ 
 }
