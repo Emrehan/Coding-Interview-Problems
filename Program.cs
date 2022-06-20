@@ -383,9 +383,27 @@ namespace dynamic_programming
             //P.Print(LongestValidParentheses(""));  //0
 
             //https://leetcode.com/problems/missing-number/
-            P.Print(MissingNumber(new int[] { 3, 0, 1 })); //2
-            P.Print(MissingNumber(new int[] { 0, 1 })); //2
-            P.Print(MissingNumber(new int[] { 9, 6, 4, 2, 3, 5, 7, 0, 1 })); //8
+            //P.Print(MissingNumber(new int[] { 3, 0, 1 })); //2
+            //P.Print(MissingNumber(new int[] { 0, 1 })); //2
+            //P.Print(MissingNumber(new int[] { 9, 6, 4, 2, 3, 5, 7, 0, 1 })); //8
+
+            //https://leetcode.com/problems/short-encoding-of-words/
+            P.Print(MinimumLengthEncoding(new string[] { "time", "me", "bell" })); //10
+            P.Print(MinimumLengthEncoding(new string[] { "t" })); //2
+        }
+
+        public static int MinimumLengthEncoding(string[] words)
+        {
+            //Init word set
+            var wordsSet = new HashSet<string>(words);
+
+            //Remove sub-strings
+            foreach (var word in words)
+                for (int i = 1; i < word.Length; i++)
+                    wordsSet.Remove(word.Substring(i));
+
+            //Total length of words + number of #
+            return wordsSet.Select(f => f.Length).Sum() + wordsSet.Count;
         }
 
         public static int MissingNumber(int[] nums)
