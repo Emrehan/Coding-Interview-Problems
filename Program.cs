@@ -397,8 +397,30 @@ namespace dynamic_programming
             var x_c2 = new TreeNode(9);
             var x_root = new TreeNode(3, x_c2, x_c1);
             //https://leetcode.com/problems/average-of-levels-in-binary-tree/
-            P.Print(AverageOfLevels(x_root).Select(f => f.ToString()).ToList()); //[3, 14.5, 11]
+            //P.Print(AverageOfLevels(x_root).Select(f => f.ToString()).ToList()); //[3, 14.5, 11]
 
+            var xx_d1 = new TreeNode(3);
+            var xx_d2 = new TreeNode(7);
+            var xx_c1 = new TreeNode(6, xx_d1, xx_d2);
+            var xx_c2 = new TreeNode(4);
+            var xx_root = new TreeNode(5, xx_c2, xx_c1);
+            //https://leetcode.com/problems/validate-binary-search-tree
+            P.Print(IsValidBST(xx_root)); //false
+
+        }
+
+        public static bool IsValidBST(TreeNode root)
+        {
+            return IsValid(root, long.MinValue, long.MaxValue);
+        }
+
+        public static bool IsValid(TreeNode root, long min, long max)
+        {
+            if (root == null) return true;
+
+            if (root.val <= min || root.val >= max) return false;
+
+            return IsValid(root.left, min, root.val) && IsValid(root.right, root.val, max);
         }
 
         public static IList<double> AverageOfLevels(TreeNode root)
