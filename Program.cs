@@ -414,7 +414,35 @@ namespace dynamic_programming
             //P.Print(MinDeletions("ceabaacb")); //2
 
             //A :)
-            P.Print(FindAnagram("abc cba ab ba a", new string[] {"abc", "a"})); //"abc":["abc", "cba"], "a":["a"]
+            //P.Print(FindAnagram("abc cba ab ba a", new string[] {"abc", "a"})); //"abc":["abc", "cba"], "a":["a"]
+
+            //https://leetcode.com/problems/path-sum-iii/
+            P.Print(PathSum(xx_root, 9)); //2
+        }
+
+        public static int PathSum(TreeNode root, int targetSum)
+        {
+            return PathSum(root, targetSum, new List<int>());
+        }
+
+        static int PathSum(TreeNode root, int targetSum, List<int> parents)
+        {
+            if (root == null) return 0;
+
+            int count = 0;
+
+            if (root.val == targetSum) count++;
+
+            int sum = root.val;
+            for (int i = parents.Count - 1; i >= 0; i--)
+            {
+                sum += parents[i];
+                if (sum == targetSum)
+                    count++;
+            }
+
+            return count + PathSum(root.left, targetSum, parents.Concat(new List<int> { root.val }).ToList())
+                + PathSum(root.right, targetSum, parents.Concat(new List<int> { root.val }).ToList());
         }
 
         public static string FindAnagram(string sentence, string[] searchWords)
