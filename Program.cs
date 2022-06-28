@@ -405,8 +405,53 @@ namespace dynamic_programming
             var xx_c2 = new TreeNode(4);
             var xx_root = new TreeNode(5, xx_c2, xx_c1);
             //https://leetcode.com/problems/validate-binary-search-tree
-            P.Print(IsValidBST(xx_root)); //false
+            //P.Print(IsValidBST(xx_root)); //false
 
+            //ceabaacb
+            //a3 b2 c2 e1
+            P.Print(MinDeletions("aab")); //0
+            P.Print(MinDeletions("aaabbbcc")); //2
+            P.Print(MinDeletions("ceabaacb")); //2
+        }
+
+        public static int MinDeletions(string s)
+        {
+            var ts = new HashSet<int>();
+            int count = 0;
+            
+            var arr = s.ToCharArray();
+            Array.Sort(arr);
+            
+            var n = 1;
+            for(int i = 0; i < arr.Length; i++)
+            {
+                if(i != arr.Length - 1 && arr[i] == arr[i+1])
+                {
+                    n++;
+                }
+                else
+                {
+                    if(!ts.Contains(n))
+                    {
+                        ts.Add(n);
+                        n = 1;
+                    }
+                    else
+                    {
+                        int p = n;
+                        while(ts.Contains(p) && p != 0)
+                        {
+                            p--;
+                            count++;
+                        }
+
+                        ts.Add(p);
+                        n = 1;
+                    }
+                }
+            }
+
+            return count;
         }
 
         public static bool IsValidBST(TreeNode root)
