@@ -408,10 +408,12 @@ namespace dynamic_programming
             //P.Print(IsValidBST(xx_root)); //false
 
             //ceabaacb
-            //a3 b2 c2 e1
+            //https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/
             P.Print(MinDeletions("aab")); //0
             P.Print(MinDeletions("aaabbbcc")); //2
             P.Print(MinDeletions("ceabaacb")); //2
+
+
         }
 
         public static int MinDeletions(string s)
