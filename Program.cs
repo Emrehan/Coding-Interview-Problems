@@ -409,11 +409,66 @@ namespace dynamic_programming
 
             //ceabaacb
             //https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/
-            P.Print(MinDeletions("aab")); //0
-            P.Print(MinDeletions("aaabbbcc")); //2
-            P.Print(MinDeletions("ceabaacb")); //2
+            //P.Print(MinDeletions("aab")); //0
+            //P.Print(MinDeletions("aaabbbcc")); //2
+            //P.Print(MinDeletions("ceabaacb")); //2
 
+            //A :)
+            P.Print(FindAnagram("abc cba ab ba a", new string[] {"abc", "a"})); //"abc":["abc", "cba"], "a":["a"]
+        }
 
+        public static string FindAnagram(string sentence, string[] searchWords)
+        {
+            var dict = new Dictionary<string, List<string>>();
+            foreach (var sWord in searchWords)
+            {
+                var freqHashString = GenerateFrequencyHashString(sWord);
+
+                dict.Add(freqHashString, new List<string>());
+                dict[freqHashString].Add(sWord);
+            }
+
+            var words = sentence.Split(" ");
+            foreach (var word in words)
+            {
+                var freqHashString = GenerateFrequencyHashString(word);
+
+                if(dict.ContainsKey(freqHashString))
+                    dict[freqHashString].Add(word);
+            }
+
+            //
+            string result = "";
+            foreach(var foundWords in dict.Values)
+            {
+                result += "\"" + foundWords[0] + "\": ";
+                var a = string.Join(", ", foundWords.Skip(1).Select(f => "\"" + f + "\""));
+                if (!string.IsNullOrWhiteSpace(a))
+                    result += "[" + a + "] ";
+            }
+            return result;
+        }
+
+        private static string GenerateFrequencyHashString(string word)
+        {
+            var dict = new Dictionary<char, int>();
+
+            var wordArray = word.ToCharArray();
+            Array.Sort(wordArray);
+            foreach(var c in wordArray)
+            {
+                if(!dict.ContainsKey(c))
+                    dict.Add(c, 0);
+
+                dict[c]++;
+            }
+
+            var result = "";
+            foreach (var keyValue in dict)
+            {
+                result += keyValue.Key + ";" + keyValue.Value;
+            }
+            return result;
         }
 
         public static int MinDeletions(string s)
