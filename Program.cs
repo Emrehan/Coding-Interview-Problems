@@ -420,8 +420,53 @@ namespace dynamic_programming
             //P.Print(PathSum(xx_root, 9)); //2
 
             //https://leetcode.com/problems/min-cost-climbing-stairs/
-            P.Print(MinCostClimbingStairs(new int[] { 10, 15, 20 })); //15
-            P.Print(MinCostClimbingStairs(new int[] { 1, 100, 1, 1, 1, 100, 1, 1, 100, 1 })); //6
+            //P.Print(MinCostClimbingStairs(new int[] { 10, 15, 20 })); //15
+            //P.Print(MinCostClimbingStairs(new int[] { 1, 100, 1, 1, 1, 100, 1, 1, 100, 1 })); //6
+
+            //https://leetcode.com/problems/binary-tree-right-side-view/
+            P.Print(RightSideView(xx_root)); // [5, 6, 7]
+        }
+
+        public static IList<int> RightSideView(TreeNode root)
+        {
+            if (root == null) return new List<int>();
+
+            var Q = new Queue<TreeNode>();
+            Q.Enqueue(root);
+            Q.Enqueue(null);
+
+            var rightView = new List<int>();
+
+            bool rightAdded = false;
+            while (Q.Count != 0)
+            {
+                var current = Q.Dequeue();
+
+                if (current == null)
+                {
+                    if (Q.Count != 0)
+                        Q.Enqueue(null);
+
+                    rightAdded = false;
+                }
+                else
+                {
+                    if (!rightAdded)
+                    {
+                        rightAdded = true;
+                        rightView.Add(current.val);
+                    }
+
+                    if (current.right != null)
+                        Q.Enqueue(current.right);
+                    if (current.left != null)
+                        Q.Enqueue(current.left);
+
+
+                }
+            }
+
+            return rightView;
         }
 
         public static int MinCostClimbingStairs(int[] cost)
