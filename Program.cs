@@ -415,6 +415,7 @@ namespace dynamic_programming
 
             //A :)
             //P.Print(FindAnagram("abc cba ab ba a", new string[] {"abc", "a"})); //"abc":["abc", "cba"], "a":["a"]
+            P.Print(FindAnagram2("abc cba ab ba a", new string[] {"abc", "a", "b"})); //"abc":["abc", "cba"], "a":["a"], "b":[]
 
             //https://leetcode.com/problems/path-sum-iii/
             //P.Print(PathSum(xx_root, 9)); //2
@@ -424,7 +425,7 @@ namespace dynamic_programming
             //P.Print(MinCostClimbingStairs(new int[] { 1, 100, 1, 1, 1, 100, 1, 1, 100, 1 })); //6
 
             //https://leetcode.com/problems/binary-tree-right-side-view/
-            P.Print(RightSideView(xx_root)); // [5, 6, 7]
+            //P.Print(RightSideView(xx_root)); // [5, 6, 7]
         }
 
         public static IList<int> RightSideView(TreeNode root)
@@ -504,6 +505,45 @@ namespace dynamic_programming
 
             return count + PathSum(root.left, targetSum, parents.Concat(new List<int> { root.val }).ToList())
                 + PathSum(root.right, targetSum, parents.Concat(new List<int> { root.val }).ToList());
+        }
+
+        public static string FindAnagram2(string sentence, string[] searchWords)
+        {
+            var dict = new Dictionary<string, List<string>>();
+
+            foreach (var sWord in searchWords)
+            {
+                string sortedString = SortString(sWord);
+                dict.Add(sortedString, new List<string>() { sWord });
+            }
+
+            var words = sentence.Split(" ");
+            foreach(var word in words)
+            {
+                var sortedWord = SortString(word);
+
+                if (dict.ContainsKey(sortedWord))
+                    dict[sortedWord].Add(word);
+            }
+
+
+            //
+            string result = "";
+            foreach (var foundWords in dict.Values)
+            {
+                result += "\"" + foundWords[0] + "\": ";
+                var a = string.Join(", ", foundWords.Skip(1).Select(f => "\"" + f + "\""));
+                if (!string.IsNullOrWhiteSpace(a))
+                    result += "[" + a + "] ";
+            }
+            return result;
+        }
+
+        private static string SortString(string sWord)
+        {
+            var wordAsCharArray = sWord.ToCharArray();
+            Array.Sort(wordAsCharArray);
+            return new string(wordAsCharArray);
         }
 
         public static string FindAnagram(string sentence, string[] searchWords)
