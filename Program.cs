@@ -417,7 +417,23 @@ namespace dynamic_programming
             //P.Print(FindAnagram("abc cba ab ba a", new string[] {"abc", "a"})); //"abc":["abc", "cba"], "a":["a"]
 
             //https://leetcode.com/problems/path-sum-iii/
-            P.Print(PathSum(xx_root, 9)); //2
+            //P.Print(PathSum(xx_root, 9)); //2
+
+            //https://leetcode.com/problems/min-cost-climbing-stairs/
+            P.Print(MinCostClimbingStairs(new int[] { 10, 15, 20 })); //15
+            P.Print(MinCostClimbingStairs(new int[] { 1, 100, 1, 1, 1, 100, 1, 1, 100, 1 })); //6
+        }
+
+        public static int MinCostClimbingStairs(int[] cost)
+        {
+            var arr = Enumerable.Repeat(0, cost.Length + 1).ToList();
+
+            for (int i = 2; i < arr.Count; i++)
+            {
+                arr[i] = Math.Min(arr[i - 2] + cost[i - 2], arr[i - 1] + cost[i - 1]);
+            }
+
+            return arr.Last();
         }
 
         public static int PathSum(TreeNode root, int targetSum)
