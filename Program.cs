@@ -415,7 +415,7 @@ namespace dynamic_programming
 
             //A :)
             //P.Print(FindAnagram("abc cba ab ba a", new string[] {"abc", "a"})); //"abc":["abc", "cba"], "a":["a"]
-            P.Print(FindAnagram2("abc cba ab ba a", new string[] {"abc", "a", "b"})); //"abc":["abc", "cba"], "a":["a"], "b":[]
+            //P.Print(FindAnagram2("abc cba ab ba a", new string[] {"abc", "a", "b"})); //"abc":["abc", "cba"], "a":["a"], "b":[]
 
             //https://leetcode.com/problems/path-sum-iii/
             //P.Print(PathSum(xx_root, 9)); //2
@@ -426,6 +426,47 @@ namespace dynamic_programming
 
             //https://leetcode.com/problems/binary-tree-right-side-view/
             //P.Print(RightSideView(xx_root)); // [5, 6, 7]
+
+            //https://leetcode.com/problems/max-area-of-island/solution/
+            P.Print(MaxAreaOfIsland(new int[][] { new int[] { 1, 0, 0, 1, 1, 1, 1} })); //4
+        }
+
+        public static int MaxAreaOfIsland(int[][] grid)
+        {
+            var dirts = new HashSet<string>();
+            for (int i = 0; i < grid.Length; i++)
+                for (int j = 0; j < grid[0].Length; j++)
+                    if (grid[i][j] == 1)
+                        dirts.Add(i + "," + j);
+
+            int maxSize = 0;
+            while (dirts.Count != 0)
+            {
+                var oneDirt = dirts.First();
+                var size = CalculateIsland(oneDirt, dirts);
+                maxSize = Math.Max(maxSize, size);
+            }
+
+            return maxSize;
+        }
+
+        public static int CalculateIsland(string dirt, HashSet<string> dirts)
+        {
+            if (!dirts.Contains(dirt)) return 0;
+
+            dirts.Remove(dirt);
+
+            var pieces = dirt.Split(",");
+            var x = int.Parse(pieces[0]);
+            var y = int.Parse(pieces[1]);
+
+            int size = 1;
+            size += CalculateIsland((x) + "," + (y + 1), dirts);
+            size += CalculateIsland((x) + "," + (y - 1), dirts);
+            size += CalculateIsland((x + 1) + "," + (y), dirts);
+            size += CalculateIsland((x - 1) + "," + (y), dirts);
+
+            return size;
         }
 
         public static IList<int> RightSideView(TreeNode root)
