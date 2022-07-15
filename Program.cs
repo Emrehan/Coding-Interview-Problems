@@ -433,38 +433,34 @@ namespace dynamic_programming
 
         public static int MaxAreaOfIsland(int[][] grid)
         {
-            var dirts = new HashSet<string>();
+            int maxSize = 0;
+
             for (int i = 0; i < grid.Length; i++)
                 for (int j = 0; j < grid[0].Length; j++)
                     if (grid[i][j] == 1)
-                        dirts.Add(i + "," + j);
-
-            int maxSize = 0;
-            while (dirts.Count != 0)
-            {
-                var oneDirt = dirts.First();
-                var size = CalculateIsland(oneDirt, dirts);
-                maxSize = Math.Max(maxSize, size);
-            }
+                    {
+                        var size = CalculateIsland(i + "," + j, grid);
+                        maxSize = Math.Max(maxSize, size);
+                    }
 
             return maxSize;
         }
 
-        public static int CalculateIsland(string dirt, HashSet<string> dirts)
+        public static int CalculateIsland(string dirt, int[][] grid)
         {
-            if (!dirts.Contains(dirt)) return 0;
-
-            dirts.Remove(dirt);
-
             var pieces = dirt.Split(",");
             var x = int.Parse(pieces[0]);
             var y = int.Parse(pieces[1]);
 
+            if (x < 0 || x >= grid.Length || y < 0 || y >= grid[0].Length) return 0;
+            if (grid[x][y] == 0) return 0;
+            grid[x][y] = 0;
+
             int size = 1;
-            size += CalculateIsland((x) + "," + (y + 1), dirts);
-            size += CalculateIsland((x) + "," + (y - 1), dirts);
-            size += CalculateIsland((x + 1) + "," + (y), dirts);
-            size += CalculateIsland((x - 1) + "," + (y), dirts);
+            size += CalculateIsland((x) + "," + (y + 1), grid);
+            size += CalculateIsland((x) + "," + (y - 1), grid);
+            size += CalculateIsland((x + 1) + "," + (y), grid);
+            size += CalculateIsland((x - 1) + "," + (y), grid);
 
             return size;
         }
