@@ -444,17 +444,14 @@ namespace dynamic_programming
             {
                 var level = new List<int>();
 
-                Console.WriteLine($"step {step}");
                 for (int i = 0; i <= step; i++)
                 {
-                    Console.WriteLine($"i = {i}");
                     if (i == 0 || i == step)
                     {
                         level.Add(1);
                     }
                     else
                     {
-                        Console.WriteLine($"Last {string.Join(",", result.Last())}");
                         level.Add(result.Last()[i - 1] + result.Last()[i]);
                     }
                 }

@@ -147,7 +147,7 @@ namespace dynamic_programming
         {
             Console.Write("[ ");
             foreach (var a in list)
-                Console.Write(string.Join(",", a));
+                Console.Write("[" + string.Join(",", a) + "]");
             Console.WriteLine(" ]");
         }
     }
