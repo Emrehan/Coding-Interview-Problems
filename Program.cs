@@ -428,7 +428,41 @@ namespace dynamic_programming
             //P.Print(RightSideView(xx_root)); // [5, 6, 7]
 
             //https://leetcode.com/problems/max-area-of-island/solution/
-            P.Print(MaxAreaOfIsland(new int[][] { new int[] { 1, 0, 0, 1, 1, 1, 1} })); //4
+            //P.Print(MaxAreaOfIsland(new int[][] { new int[] { 1, 0, 0, 1, 1, 1, 1} })); //4
+
+            //https://leetcode.com/problems/pascals-triangle/
+            P.Print(Generate(5)); //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+            P.Print(Generate(1)); //[[1]]
+        }
+
+        public static IList<IList<int>> Generate(int numRows)
+        {
+            IList<IList<int>> result = new List<IList<int>>();
+
+            result.Add(new List<int>() { 1 });
+            for (int step = 1; step < numRows; step++)
+            {
+                var level = new List<int>();
+
+                Console.WriteLine($"step {step}");
+                for (int i = 0; i <= step; i++)
+                {
+                    Console.WriteLine($"i = {i}");
+                    if (i == 0 || i == step)
+                    {
+                        level.Add(1);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Last {string.Join(",", result.Last())}");
+                        level.Add(result.Last()[i - 1] + result.Last()[i]);
+                    }
+                }
+
+                result.Add(level);
+            }
+
+            return result;
         }
 
         public static int MaxAreaOfIsland(int[][] grid)
