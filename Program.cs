@@ -435,15 +435,55 @@ namespace dynamic_programming
             //P.Print(Generate(1)); //[[1]]
 
             //https://leetcode.com/problems/search-a-2d-matrix-ii
-            P.Print(SearchMatrix(new int[][] 
-            { 
-                new int[] { 1, 4, 7, 11, 15 } , 
-                new int[] { 2, 5, 8, 12, 19}, 
-                new int[] { 3, 6, 9, 16, 22}, 
-                new int[] { 10, 13, 14, 17, 24}, 
-                new int[] { 18, 21, 23, 26, 30}, 
-            }, 5)); //true
+            //P.Print(SearchMatrix(new int[][] 
+            //{ 
+            //    new int[] { 1, 4, 7, 11, 15 } , 
+            //    new int[] { 2, 5, 8, 12, 19}, 
+            //    new int[] { 3, 6, 9, 16, 22}, 
+            //    new int[] { 10, 13, 14, 17, 24}, 
+            //    new int[] { 18, 21, 23, 26, 30}, 
+            //}, 5)); //true
 
+            //https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+            P.Print(SearchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 8)); // [3, 4]
+            P.Print(SearchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 6)); // [-1, -1]
+        }
+
+        public static int[] SearchRange(int[] nums, int target)
+        {
+            if (nums.Length == 0) return new int[] { -1, -1 };
+
+            int l = 0;
+            int r = nums.Length - 1;
+            int m = 0;
+
+            while (l <= r)
+            {
+                m = (l + r) / 2;
+
+                if (nums[m] == target)
+                    return GetRange(nums, m);
+                else if (nums[m] > target)
+                    r = m - 1;
+                else if (nums[m] < target)
+                    l = m + 1;
+            }
+
+            return new int[] { -1, -1 };
+        }
+
+        public static int[] GetRange(int[] nums, int mid)
+        {
+            int l = mid;
+            int r = mid;
+
+            while (l > 0 && nums[l - 1] == nums[mid])
+                l--;
+
+            while (r < nums.Length - 1 && nums[r + 1] == nums[mid])
+                r++;
+
+            return new int[] { l, r };
         }
 
         public static bool SearchMatrix(int[][] matrix, int target)
