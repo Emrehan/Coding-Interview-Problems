@@ -431,8 +431,50 @@ namespace dynamic_programming
             //P.Print(MaxAreaOfIsland(new int[][] { new int[] { 1, 0, 0, 1, 1, 1, 1} })); //4
 
             //https://leetcode.com/problems/pascals-triangle/
-            P.Print(Generate(5)); //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
-            P.Print(Generate(1)); //[[1]]
+            //P.Print(Generate(5)); //[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+            //P.Print(Generate(1)); //[[1]]
+
+            //https://leetcode.com/problems/search-a-2d-matrix-ii
+            P.Print(SearchMatrix(new int[][] 
+            { 
+                new int[] { 1, 4, 7, 11, 15 } , 
+                new int[] { 2, 5, 8, 12, 19}, 
+                new int[] { 3, 6, 9, 16, 22}, 
+                new int[] { 10, 13, 14, 17, 24}, 
+                new int[] { 18, 21, 23, 26, 30}, 
+            }, 5)); //true
+
+        }
+
+        public static bool SearchMatrix(int[][] matrix, int target)
+        {
+
+            foreach (var row in matrix)
+            {
+                if (row[0] > target) return false;
+                else if (row[row.Length - 1] < target) continue;
+
+                //Console.WriteLine("row " + string.Join(",",row));
+
+                //Binary Search
+                int l = 0;
+                int r = row.Length - 1;
+                int m;
+
+                while (l <= r)
+                {
+                    m = (l + r) / 2;
+
+                    if (row[m] == target)
+                        return true;
+                    else if (row[m] > target)
+                        r = m - 1;
+                    else
+                        l = m + 1;
+                }
+            }
+
+            return false;
         }
 
         public static IList<IList<int>> Generate(int numRows)
