@@ -150,5 +150,29 @@ namespace dynamic_programming
                 Console.Write("[" + string.Join(",", a) + "]");
             Console.WriteLine(" ]");
         }
+
+        static int COUNT = 5;
+        internal static void Print(TreeNode root, int space = 0)
+        {
+            // Base case
+            if (root == null)
+                return;
+
+            // Increase distance between levels
+            space += COUNT;
+
+            // Process right child first
+            Print(root.right, space);
+
+            // Print current node after space
+            // count
+            Console.Write("\n");
+            for (int i = COUNT; i < space; i++)
+                Console.Write(" ");
+            Console.Write(root.val + "\n");
+
+            // Process left child
+            Print(root.left, space);
+        }
     }
 }

@@ -399,6 +399,11 @@ namespace dynamic_programming
             //https://leetcode.com/problems/average-of-levels-in-binary-tree/
             //P.Print(AverageOfLevels(x_root).Select(f => f.ToString()).ToList()); //[3, 14.5, 11]
 
+            /*
+                5  
+             4     6   
+                 3   7
+            */
             var xx_d1 = new TreeNode(3);
             var xx_d2 = new TreeNode(7);
             var xx_c1 = new TreeNode(6, xx_d1, xx_d2);
@@ -445,8 +450,34 @@ namespace dynamic_programming
             //}, 5)); //true
 
             //https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
-            P.Print(SearchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 8)); // [3, 4]
-            P.Print(SearchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 6)); // [-1, -1]
+            //P.Print(SearchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 8)); // [3, 4]
+            //P.Print(SearchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 6)); // [-1, -1]
+
+            //https://leetcode.com/problems/flatten-binary-tree-to-linked-list
+            Console.WriteLine("----------Before----------");
+            P.Print(xx_root);
+            Flatten(xx_root);
+            Console.WriteLine("----------After----------");
+            P.Print(xx_root);
+        }
+
+        public static void Flatten(TreeNode root)
+        {
+            if (root == null) return;
+
+            Flatten(root.right);
+            Flatten(root.left);
+
+            //Move left tree to right
+            var temp = root.right;
+            root.right = root.left;
+            root.left = null;
+
+            //Add prev right tree to right but at buttom
+            var p = root;
+            while (p.right != null)
+                p = p.right;
+            p.right = temp;
         }
 
         public static int[] SearchRange(int[] nums, int target)
