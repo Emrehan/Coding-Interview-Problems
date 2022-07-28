@@ -453,12 +453,44 @@ namespace dynamic_programming
             //P.Print(SearchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 8)); // [3, 4]
             //P.Print(SearchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 6)); // [-1, -1]
 
-            //https://leetcode.com/problems/flatten-binary-tree-to-linked-list
-            Console.WriteLine("----------Before----------");
-            P.Print(xx_root);
-            Flatten(xx_root);
-            Console.WriteLine("----------After----------");
-            P.Print(xx_root);
+            ////https://leetcode.com/problems/flatten-binary-tree-to-linked-list
+            //Console.WriteLine("----------Before----------");
+            //P.Print(xx_root);
+            //Flatten(xx_root);
+            //Console.WriteLine("----------After----------");
+            //P.Print(xx_root);
+
+            //https://leetcode.com/problems/valid-anagram/
+            P.Print(IsAnagram("anagram", "nagaram")); //true
+        }
+
+        public static bool IsAnagram(string s, string t)
+        {
+            if (s.Length != t.Length) return false;
+
+            var dict = new Dictionary<char, int>();
+
+            foreach (var c in s)
+            {
+                if (!dict.ContainsKey(c))
+                    dict.Add(c, 0);
+
+                dict[c]++;
+            }
+
+            foreach (var c in t)
+            {
+                if (!dict.ContainsKey(c)) return false;
+
+                dict[c]--;
+                if (dict[c] == 0)
+                    dict.Remove(c);
+            }
+
+            if (dict.Count == 0)
+                return true;
+            else
+                return false;
         }
 
         public static void Flatten(TreeNode root)
@@ -2163,7 +2195,7 @@ namespace dynamic_programming
             return new int[] { firstIndex+1, lastIndex-1 };
         }
 
-        private static bool IsAnagram(string str1, string str2)
+        private static bool IsAnagram3(string str1, string str2)
         {
             if (str1.Length != str2.Length) return false;
             if (string.IsNullOrEmpty(str1)) return true;
