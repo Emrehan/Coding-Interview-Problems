@@ -461,9 +461,45 @@ namespace dynamic_programming
             //P.Print(xx_root);
 
             //https://leetcode.com/problems/valid-anagram/
-            P.Print(IsAnagram("anagram", "nagaram")); //true
+            //P.Print(IsAnagram("anagram", "nagaram")); //true
+
+            /*
+                1  
+             0     1   
+                 0   1
+            */
+            var Z_d1 = new TreeNode(0);
+            var Z_d2 = new TreeNode(1);
+            var Z_c1 = new TreeNode(1, Z_d1, Z_d2);
+            var Z_c2 = new TreeNode(0);
+            var Z_root = new TreeNode(1, Z_c2, Z_c1);
+
+
+            //https://leetcode.com/problems/binary-tree-pruning/
+            P.Print(PruneTree(Z_root));
+        }
+        public static TreeNode PruneTree(TreeNode root)
+        {
+            if (!HasOne(root))
+                root = null;
+
+            return root;
         }
 
+        public static bool HasOne(TreeNode root)
+        {
+            if (root == null) return false;
+
+            var leftHas = HasOne(root.left);
+            if (!leftHas)
+                root.left = null;
+
+            var rightHas = HasOne(root.right);
+            if (!rightHas)
+                root.right = null;
+
+            return leftHas || rightHas || root.val == 1;
+        }
         public static bool IsAnagram(string s, string t)
         {
             if (s.Length != t.Length) return false;
