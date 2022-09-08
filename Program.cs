@@ -398,7 +398,7 @@ namespace dynamic_programming
             var x_root = new TreeNode(3, x_c2, x_c1);
             //https://leetcode.com/problems/average-of-levels-in-binary-tree/
             //P.Print(AverageOfLevels(x_root).Select(f => f.ToString()).ToList()); //[3, 14.5, 11]
-
+            
             /*
                 5  
              4     6   
@@ -476,8 +476,25 @@ namespace dynamic_programming
 
 
             //https://leetcode.com/problems/binary-tree-pruning/
-            P.Print(PruneTree(Z_root));
+            //P.Print(PruneTree(Z_root));
+
+            //https://leetcode.com/problems/binary-tree-inorder-traversal
+            P.Print(InorderTraversal(x_root)); //[ 9 3 15 20 7  ]
         }
+
+        public static IList<int> InorderTraversal(TreeNode root)
+        {
+            if (root == null) return new List<int>();
+
+            List<int> list = new List<int>();
+
+            list.AddRange(InorderTraversal(root.left));
+            list.Add(root.val);
+            list.AddRange(InorderTraversal(root.right));
+
+            return list;
+        }
+
         public static TreeNode PruneTree(TreeNode root)
         {
             if (!HasOne(root))
